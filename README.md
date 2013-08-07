@@ -48,11 +48,11 @@ Functional programming is made possible through the use of higher-order function
 
 Higher-order functions facilitate interesting techniques:
 
-1. Strategy pattern through composition
-2. Application and currying
-2. Recursion
-3. Operator Computation
-5. Visitor pattern through folding/reduce
+1. Strategy pattern through _composition_
+2. _Application_ and _currying_
+2. _Recursion_
+3. Operator and Mathematical _computation_
+5. Visitor pattern through _fold_ing/_reduce_
 
 ## Coding Guide
 
