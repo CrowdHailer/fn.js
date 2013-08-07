@@ -6,7 +6,7 @@
 
 Functional programming, as opposed to imperative programming, is a programming paradigm where the flow of an application's code is directed by functions, not objects or procedures. If it helps, you may try to imagine functional programming as the opposite of object-oriented programming even though the parallels are not completely one-to-one.
 
-Using functional programming is often an art in abstracting through the use functions and function passing, and efficiency in writing code is achieved through the employment of several core tenets of functional programming:
+Functional programming often involves creating abstractions through several layers of functions or function passing. Functional programming is often not more performant, but rather writing code becomes more efficient. Expressions can be written in a much more elegant and terse manner. Functional programming strives to employ some core tenets:
 
 ### Referential Transparency
 
@@ -38,7 +38,7 @@ var getLater = function ( start, offset ) {
 console.log( getLater( Date.now(), 15000 ) ); // invocation
 ```
 
-In the first snippet, the `getLater` function accepts a single argument, but depends on external state from the `now` variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #1 achieves it. By looking only at the invocation of `getLater` in each example, you cannot reliably predict the outcome of #1, while you can with #2.
+In the first snippet, the `getLater` function accepts a single argument, but depends on external state from the `now` variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #2 achieves it. By looking only at the invocation of `getLater` in each example, you cannot reliably predict the outcome of #1, while you can with #2.
 
 Functional programming inherently tries to avoid making decisions based on state or mutable data that exists external to a function.
 
