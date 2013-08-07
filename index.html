@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Fn.js by eliperelman</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Fn.js</h1>
+        <h2>Functional programming strategy library for JavaScript</h2>
+        <a href="https://github.com/eliperelman/fn.js" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="fnjs" class="anchor" href="#fnjs"><span class="octicon octicon-link"></span></a>fn.js</h1>
+
+<p><code>fn.js</code> is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.</p>
+
+<h2>
+<a name="functional-programming" class="anchor" href="#functional-programming"><span class="octicon octicon-link"></span></a>Functional Programming</h2>
+
+<p>Functional programming, as opposed to imperative programming, is a programming paradigm where the flow of an application's code is directed by functions, not objects or procedures. If it helps, you may try to imagine functional programming as the opposite of object-oriented programming even though the parallels are not completely one-to-one.</p>
+
+<p>Using functional programming is often an art in abstracting through the use functions and function passing, and efficiency in writing code is achieved through the employment of several core tenets of functional programming:</p>
+
+<h3>
+<a name="referential-transparency" class="anchor" href="#referential-transparency"><span class="octicon octicon-link"></span></a>Referential Transparency</h3>
+
+<p>In object-oriented or classic programming applications, the flow of code is controlled by creating objects that mimic real-world or virtual beings. As an example, if you were creating an application that allowed users to purchase a vehicle, you might create a <code>Vehicle</code> class or prototype to model the interaction that a user performs in customizing their vehicle. As a <code>Vehicle</code> instance is modified, other functionality in an application is triggered to execute, and so continues the flow.</p>
+
+<p>In order to control the flow of the program, you must modify the state of objects or the state of an application. Different outcomes are possible based on the state of those objects or the application. In this manner, we can say that object-orientation lacks <em>referential transparency</em>.</p>
+
+<p><em>Referential transparency</em> is the ability of code to be evaluated in a predictable manner, not influenced by external state. Code that has achieved referential transparency is only affected by arguments that are passed to it, and changing state in the application has no effect. That same code should always output the same value for a given set of arguments, and only changing those arguments can a value be different.</p>
+
+<p>In object-orientation, changing the state of the <code>Vehicle</code> can change how functionality on the rest of the site works. In functional programming, we create functions that reads nothing external, only arguments passed to it.</p>
+
+<p>Compare the following functions:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">now</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">getLater</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">offset</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">now</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">getLater</span><span class="p">(</span> <span class="mi">15000</span> <span class="p">)</span> <span class="p">);</span> <span class="c1">// invocation</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">getLater</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">offset</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">getLater</span><span class="p">(</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">(),</span> <span class="mi">15000</span> <span class="p">)</span> <span class="p">);</span> <span class="c1">// invocation</span>
+</pre></div>
+
+<p>In the first snippet, the <code>getLater</code> function accepts a single argument, but depends on external state from the <code>now</code> variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #1 achieves it. By looking only at the invocation of <code>getLater</code> in each example, you cannot reliably predict the outcome of #1, while you can with #2.</p>
+
+<p>Functional programming inherently tries to avoid making decisions based on state or mutable data that exists external to a function.</p>
+
+<h3>
+<a name="higher-order-functions" class="anchor" href="#higher-order-functions"><span class="octicon octicon-link"></span></a>Higher-order Functions</h3>
+
+<p>Functional programming is made possible through the use of higher-order functions. A higher-order function is a function that can <em>accept</em> functions as arguments, and can even <em>return</em> a function.</p>
+
+<p>Higher-order functions facilitate interesting techniques:</p>
+
+<ol>
+<li>Strategy pattern through composition</li>
+<li>Application and currying</li>
+<li>Recursion</li>
+<li>Operator Computation</li>
+<li>Visitor pattern through folding/reduce</li>
+</ol><h2>
+<a name="coding-guide" class="anchor" href="#coding-guide"><span class="octicon octicon-link"></span></a>Coding Guide</h2>
+
+<p>Any code committed to this library must be evaluated for its adherence to referential transparency and efficient use of higher-order functions. As such, all external contributions must be made through pull request to facilitate the discussion around any new inclusions. Some functions by nature directly violate or bend referential transparency, so it is not always possible to adhere to this principle in every case, and exceptions can be made in those cases.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/eliperelman/fn.js/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/eliperelman/fn.js/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/eliperelman/fn.js"></a> is maintained by <a href="https://github.com/eliperelman">eliperelman</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
