@@ -18,7 +18,29 @@ _Referential transparency_ is the ability of code to be evaluated in a predictab
 
 In object-orientation, changing the state of the `Vehicle` can change how functionality on the rest of the site works. In functional programming, we create functions that reads nothing external, only arguments passed to it.
 
-Functional programming inherently tries to avoid making decisions based on state or mutable data.
+Compare the following functions:
+
+```js
+var now = Date.now();
+
+var getLater = function ( offset ) {
+	return now + offset;
+};
+
+console.log( getLater( 15000 ) );
+```
+
+```js
+var getLater = function ( start, offset ) {
+	return start + offset;
+};
+
+console.log( getLater( Date.now(), 15000 ) );
+```
+
+In the first snippet, the `getLater` function accepts a single argument, but depends on external state from the `now` variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #1 achieves it. By looking only at the invocation of `getLater` in each example, you cannot reliably predict the outcome of #1, while you can with #2.
+
+Functional programming inherently tries to avoid making decisions based on state or mutable data that exists external to a function.
 
 ### Higher-order Functions
 
