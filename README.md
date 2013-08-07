@@ -27,7 +27,7 @@ var getLater = function ( offset ) {
 	return now + offset;
 };
 
-console.log( getLater( 15000 ) );
+console.log( getLater( 15000 ) ); // invocation
 ```
 
 ```js
@@ -35,7 +35,7 @@ var getLater = function ( start, offset ) {
 	return start + offset;
 };
 
-console.log( getLater( Date.now(), 15000 ) );
+console.log( getLater( Date.now(), 15000 ) ); // invocation
 ```
 
 In the first snippet, the `getLater` function accepts a single argument, but depends on external state from the `now` variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #1 achieves it. By looking only at the invocation of `getLater` in each example, you cannot reliably predict the outcome of #1, while you can with #2.
