@@ -52,7 +52,7 @@ Higher-order functions facilitate interesting techniques:
 2. _Application_ and _currying_
 2. _Recursion_
 3. Operator and Mathematical _computation_
-5. Visitor pattern through _fold_ing/_reduce_
+5. Visitor pattern through _folding_
 
 ## Coding Guide
 
