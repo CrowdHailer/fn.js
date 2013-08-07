@@ -1,5 +1,4 @@
 # fn.js
-=======
 
 `fn.js` is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.
 
