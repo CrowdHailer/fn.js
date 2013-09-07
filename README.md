@@ -24,7 +24,7 @@ Compare the following functions:
 var now = Date.now();
 
 var getLater = function ( offset ) {
-	return now + offset;
+    return now + offset;
 };
 
 console.log( getLater( 15000 ) ); // invocation
@@ -32,7 +32,7 @@ console.log( getLater( 15000 ) ); // invocation
 
 ```js
 var getLater = function ( start, offset ) {
-	return start + offset;
+    return start + offset;
 };
 
 console.log( getLater( Date.now(), 15000 ) ); // invocation
@@ -53,6 +53,36 @@ Higher-order functions facilitate interesting techniques:
 2. _Recursion_
 3. Operator and Mathematical _computation_
 5. Visitor pattern through _folding_
+
+### Immutability
+
+Another core tenant of functional programming is _immutability_, or the inability for variables to changes their values once created. In other words, all things created should strive to be constants. In JavaScript there is no internal mechanism to enforce this as there is in pure functional programming languages like Haskell and friends. JavaScript is dynamic and without strict typing, and so keeping variables immutable in a codebase is merely a convention and cannot be enforced by fn.js. With that being said, fn.js strives to adhere to this rule and all methods used should treat all arguments passed as immutable. For example, using `.map` or `.reverse` will give you back new arrays, not mutate your existing arrays.
+
+### Side Effects
+
+The concept of side effects is closely related to the design pattern of the Single Responsibility Principle, or as I like to say: "A function should do one thing, and do it well." Any function that does something other than its single intended purpose is said to have _side effects_. In pure functional programming languages side effects are not allowed, but this is JavaScript and everything is fair game and must be enforced with conventions. For example, take the following method:
+
+```javascript
+var add = function (num1, num2) {
+    return num1 + num2;
+};
+```
+
+This `add` method takes 2 numbers and adds them together, and it only does its single purpose; it has no side effects. Now:
+
+```javascript
+var add = function (num1, num2) {
+    var result = num1 + num2;
+
+    console.log(result);
+
+    return result;
+};
+```
+
+Here the `add` method decides to log the results of the addition before returning the result. While the function still achieves its primary purpose, it is no longer free from side effects as it also logs a value in additional to trying to accomplish its goal.
+
+Side effects and state mechanisms should be solved through other means of functional programming, e.g. monads.
 
 ## Coding Guide
 
