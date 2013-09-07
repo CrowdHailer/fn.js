@@ -19,7 +19,15 @@ var fn = require('fn.js');
 #### AMD require.js
 
 ```js
-require('fn.js', function (fn) {
+require.config({
+    paths: {
+        fn: 'path/to/fn'
+    }
+});
+```
+
+```js
+define(['fn'], function (fn) {
     // fn now available
 };
 ```
@@ -27,7 +35,7 @@ require('fn.js', function (fn) {
 #### Traditional browser script include
 
 ```html
-<script src="fn.js"></script>
+<script src="path/to/fn.js"></script>
 <script>
     // fn now available
 </script>
