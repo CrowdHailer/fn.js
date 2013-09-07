@@ -1,6 +1,6 @@
 {
   "name": "fn.js",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Functional programming strategy library for JavaScript",
   "main": "build/fn.js",
   "repository": {
