@@ -2,7 +2,10 @@
 
 `fn.js` is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.
 
-`NOTE: This project is in early stages and may undergo breaking changes while we work to make it much more robust and feature complete.`
+```
+NOTE: This project is in early stages and may undergo breaking changes
+while we work to make it much more robust and feature complete.
+```
 
 ## Installation
 
