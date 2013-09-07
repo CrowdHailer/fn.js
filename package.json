@@ -1,8 +1,8 @@
 {
   "name": "fn.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Functional programming strategy library for JavaScript",
-  "main": "src/index.js",
+  "main": "build/fn.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/eliperelman/fn.js"
