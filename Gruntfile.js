@@ -2,11 +2,11 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         bump: {
-            main: {
+            options: {
                 commit: true,
                 createTag: true,
                 push: true,
-                pushTo: 'origin'
+                pushTo: 'master'
             }
         },
         umd: {
