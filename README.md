@@ -2,6 +2,37 @@
 
 `fn.js` is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.
 
+## Installation
+
+`fn.js` is a UMD module, so it can be used in the browser, Node.js, and AMD/require.js environments.
+
+#### Node.js
+
+```sh
+npm install fn.js
+```
+
+```js
+var fn = require('fn.js');
+```
+
+#### AMD require.js
+
+```js
+require('fn.js', function (fn) {
+    // fn now available
+};
+```
+
+#### Traditional browser script include
+
+```html
+<script src="fn.js"></script>
+<script>
+    // fn now available
+</script>
+```
+
 ## Functional Programming
 
 Functional programming, as opposed to imperative programming, is a programming paradigm where the flow of an application's code is directed by functions, not objects or procedures. If it helps, you may try to imagine functional programming as the opposite of object-oriented programming even though the parallels are not completely one-to-one.
