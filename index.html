@@ -34,11 +34,49 @@
 <p><code>fn.js</code> is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.</p>
 
 <h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p><code>fn.js</code> is a UMD module, so it can be used in the browser, Node.js, and AMD/require.js environments.</p>
+
+<h4>
+<a name="nodejs" class="anchor" href="#nodejs"><span class="octicon octicon-link"></span></a>Node.js</h4>
+
+<div class="highlight"><pre>npm install fn.js
+</pre></div>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fn.js'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="amd-requirejs" class="anchor" href="#amd-requirejs"><span class="octicon octicon-link"></span></a>AMD require.js</h4>
+
+<div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+    <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">fn</span><span class="o">:</span> <span class="s1">'path/to/fn'</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">define</span><span class="p">([</span><span class="s1">'fn'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// fn now available</span>
+<span class="p">};</span>
+</pre></div>
+
+<h4>
+<a name="traditional-browser-script-include" class="anchor" href="#traditional-browser-script-include"><span class="octicon octicon-link"></span></a>Traditional browser script include</h4>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"path/to/fn.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="c1">// fn now available</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h2>
 <a name="functional-programming" class="anchor" href="#functional-programming"><span class="octicon octicon-link"></span></a>Functional Programming</h2>
 
 <p>Functional programming, as opposed to imperative programming, is a programming paradigm where the flow of an application's code is directed by functions, not objects or procedures. If it helps, you may try to imagine functional programming as the opposite of object-oriented programming even though the parallels are not completely one-to-one.</p>
 
-<p>Using functional programming is often an art in abstracting through the use functions and function passing, and efficiency in writing code is achieved through the employment of several core tenets of functional programming:</p>
+<p>Functional programming often involves creating abstractions through several layers of functions or function passing. Functional programming is often not more performant, but rather writing code becomes more efficient. Expressions can be written in a much more elegant and terse manner. Functional programming strives to employ some core tenets:</p>
 
 <h3>
 <a name="referential-transparency" class="anchor" href="#referential-transparency"><span class="octicon octicon-link"></span></a>Referential Transparency</h3>
@@ -69,7 +107,7 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">getLater</span><span class="p">(</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">(),</span> <span class="mi">15000</span> <span class="p">)</span> <span class="p">);</span> <span class="c1">// invocation</span>
 </pre></div>
 
-<p>In the first snippet, the <code>getLater</code> function accepts a single argument, but depends on external state from the <code>now</code> variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #1 achieves it. By looking only at the invocation of <code>getLater</code> in each example, you cannot reliably predict the outcome of #1, while you can with #2.</p>
+<p>In the first snippet, the <code>getLater</code> function accepts a single argument, but depends on external state from the <code>now</code> variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #2 achieves it. By looking only at the invocation of <code>getLater</code> in each example, you cannot reliably predict the outcome of #1, while you can with #2.</p>
 
 <p>Functional programming inherently tries to avoid making decisions based on state or mutable data that exists external to a function.</p>
 
@@ -81,12 +119,47 @@
 <p>Higher-order functions facilitate interesting techniques:</p>
 
 <ol>
-<li>Strategy pattern through composition</li>
-<li>Application and currying</li>
-<li>Recursion</li>
-<li>Operator Computation</li>
-<li>Visitor pattern through folding/reduce</li>
-</ol><h2>
+<li>Strategy pattern through <em>composition</em>
+</li>
+<li>
+<em>Application</em> and <em>currying</em>
+</li>
+<li><em>Recursion</em></li>
+<li>Operator and Mathematical <em>computation</em>
+</li>
+<li>Visitor pattern through <em>folding</em>
+</li>
+</ol><h3>
+<a name="immutability" class="anchor" href="#immutability"><span class="octicon octicon-link"></span></a>Immutability</h3>
+
+<p>Another core tenant of functional programming is <em>immutability</em>, or the inability for variables to changes their values once created. In other words, all things created should strive to be constants. In JavaScript there is no internal mechanism to enforce this as there is in pure functional programming languages like Haskell and friends. JavaScript is dynamic and without strict typing, and so keeping variables immutable in a codebase is merely a convention and cannot be enforced by fn.js. With that being said, fn.js strives to adhere to this rule and all methods used should treat all arguments passed as immutable. For example, using <code>.map</code> or <code>.reverse</code> will give you back new arrays, not mutate your existing arrays.</p>
+
+<h3>
+<a name="side-effects" class="anchor" href="#side-effects"><span class="octicon octicon-link"></span></a>Side Effects</h3>
+
+<p>The concept of side effects is closely related to the design pattern of the Single Responsibility Principle, or as I like to say: "A function should do one thing, and do it well." Any function that does something other than its single intended purpose is said to have <em>side effects</em>. In pure functional programming languages side effects are not allowed, but this is JavaScript and everything is fair game and must be enforced with conventions. For example, take the following method:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>This <code>add</code> method takes 2 numbers and adds them together, and it only does its single purpose; it has no side effects. Now:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>Here the <code>add</code> method decides to log the results of the addition before returning the result. While the function still achieves its primary purpose, it is no longer free from side effects as it also logs a value in additional to trying to accomplish its goal.</p>
+
+<p>Side effects and state mechanisms should be solved through other means of functional programming, e.g. monads.</p>
+
+<h2>
 <a name="coding-guide" class="anchor" href="#coding-guide"><span class="octicon octicon-link"></span></a>Coding Guide</h2>
 
 <p>Any code committed to this library must be evaluated for its adherence to referential transparency and efficient use of higher-order functions. As such, all external contributions must be made through pull request to facilitate the discussion around any new inclusions. Some functions by nature directly violate or bend referential transparency, so it is not always possible to adhere to this principle in every case, and exceptions can be made in those cases.</p>
