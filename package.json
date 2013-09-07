@@ -1,6 +1,6 @@
 {
   "name": "fn.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Functional programming strategy library for JavaScript",
   "main": "src/index.js",
   "repository": {
@@ -13,6 +13,7 @@
     "fp"
   ],
   "author": "Eli Perelman",
+  "homepage": "https://github.com/eliperelman/fn.js",
   "license": "MIT",
   "gitHead": "03ee04cb590f1692f60737c576ff50e43e1ea943",
   "readmeFilename": "README.md",
