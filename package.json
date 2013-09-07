@@ -1,0 +1,31 @@
+{
+  "name": "fn.js",
+  "version": "0.2.0",
+  "description": "Functional programming strategy library for JavaScript",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eliperelman/fn.js"
+  },
+  "keywords": [
+    "functional",
+    "programming",
+    "fp"
+  ],
+  "author": "Eli Perelman",
+  "license": "MIT",
+  "gitHead": "03ee04cb590f1692f60737c576ff50e43e1ea943",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/eliperelman/fn.js/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-bump": "0.0.11",
+    "grunt-umd": "~1.1.0",
+    "grunt-contrib-jshint": "~0.6.2",
+    "grunt-cafe-mocha": "~0.1.8",
+    "chai": "~1.7.2"
+  },
+  "dependencies": {}
+}
