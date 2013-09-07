@@ -1,6 +1,14 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+        bump: {
+            main: {
+                commit: true,
+                createTag: true,
+                push: true,
+                pushTo: 'origin'
+            }
+        },
         umd: {
             main: {
                 src: 'src/index.js',
