@@ -6,7 +6,7 @@ module.exports = function (grunt) {
                 commit: true,
                 createTag: true,
                 push: true,
-                pushTo: 'master'
+                pushTo: 'origin'
             }
         },
         umd: {
