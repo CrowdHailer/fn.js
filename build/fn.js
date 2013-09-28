@@ -96,39 +96,35 @@ fn.properties = function (object) {
     return accumulator;
 };
 
-fn.filter = function (expression, collection) {
-    return fn.reduce(function (accumulator, item, index) {
-        expression(item, index) && accumulator.push(item);
-        
-        return accumulator;
-    }, collection, []);
-};
-
-fn.each = function (handler, collection) {
+fn.each = function (handler, collection, params) {
     for (var index = 0, collectionLength = collection.length; index < collectionLength; index++) {
-        handler(collection[index], index);
+        fn.apply(handler, fn.concat([ collection[index], index, collection ], params));
     }
 };
 
-fn.reduce = function (handler, collection, accumulator) {
+fn.reduce = function (handler, collection, accumulator, params) {
     fn.each(function (value, index) {
-        accumulator = handler(accumulator, value, index);
+        accumulator = fn.apply(handler, fn.concat([ accumulator, value, index ], params));
     }, collection);
 
     return accumulator;
+};
+
+fn.filter = function (expression, collection) {
+    return fn.reduce(function (accumulator, item, index) {
+        expression(item, index) && accumulator.push(item);
+        return accumulator;
+    }, collection, []);
 };
 
 fn.op['++'] = fn.partial(fn.op['+'], 1);
 fn.op['--'] = fn.partial(fn.op['+'], -1);
 
-fn.map = function (handler, collection) {
-    var accumulator = [];
-
-    fn.each(function (value, index) {
-        accumulator.push(handler(value, index));
-    }, collection);
-
-    return accumulator;
+fn.map = function (handler, collection, params) {
+    return fn.reduce(function (accumulator, value, index) {
+        accumulator.push( fn.apply(handler, fn.concat([ value, index, collection ], params)) );
+        return accumulator;
+    }, collection, []);
 };
 
 fn.reverse = function (collection) {

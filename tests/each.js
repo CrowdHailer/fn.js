@@ -44,4 +44,22 @@ describe('.each()', function () {
         expect(indices[2]).to.equal(2);
     });
 
+    it('should be passed the collection as the third argument', function () {
+        var collection = [1, 'string', true];
+
+        fn.each(function (value, index, copy) {
+            expect(copy).to.equal(collection);
+        }, collection);
+    });
+
+    it('should apply additional arguments to the handler', function () {
+        var collection = [1, 2, 3];
+
+        fn.each(function (value, index, collection, four, five, six) {
+            expect(four).to.equal(4);
+            expect(five).to.equal(5);
+            expect(six).to.equal(6);
+        }, collection, [4, 5, 6]);
+    });
+
 });
