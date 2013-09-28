@@ -154,5 +154,9 @@ fn.is = function (value, type) {
 
     return type === valueType;
 };
+
+fn.prop = fn.curry(function (name, object) {
+    return object[name];
+});
     return fn;
 }));
