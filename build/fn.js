@@ -145,16 +145,6 @@ fn.compose = function () {
     return fn.apply(fn.pipeline, fn.reverse(arguments));
 };
 
-fn.is = function (value, type) {
-    // If the value is null or undefined, return the stringified name,
-    // otherwise get the [[Class]] and compare to the relevant part of the value:
-    var valueType = value == null ?
-        '' + value :
-        ({}).toString.call(value).slice(8, -1).toLowerCase();
-
-    return type === valueType;
-};
-
 fn.prop = fn.curry(function (name, object) {
     return object[name];
 });
