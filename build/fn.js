@@ -40,14 +40,16 @@ fn.op = {
 	}
 };
 
-fn.is = function (value, type) {
+fn.type = function (value) {
 	// If the value is null or undefined, return the stringified name,
-	// otherwise get the [[Class]] and compare to the relevant part of the value:
-	var valueType = value == null ?
+	// otherwise get the [[Class]] and compare to the relevant part of the value
+	return value == null ?
 		'' + value :
 		({}).toString.call(value).slice(8, -1).toLowerCase();
+};
 
-	return type === valueType;
+fn.is = function (value, type) {
+	return type === fn.type(value);
 };
 
 fn.apply = function (handler, args) {
@@ -157,6 +159,81 @@ fn.merge = function () {
 
 		return accumulator;
 	}, fn.toArray(arguments), {});
+};
+
+fn.memoize = function memoize(handler, serializer) {
+	var cache = {};
+
+	return function () {
+		var args = fn.toArray(arguments);
+		var key = serializer ? serializer(args) : memoize.serialize(args);
+
+		return key in cache ?
+			cache[key] :
+			cache[key] = fn.apply(handler, args);
+	};
+};
+
+fn.memoize.serialize = function (values) {
+	return fn.type(values[0]) + '|' + JSON.stringify(values[0]);
+};
+
+fn.flip = function (handler) {
+	return function () {
+		return fn.apply(handler, fn.reverse(arguments));
+	};
+};
+
+fn.delay = function (handler, msDelay) {
+	return setTimeout(handler, msDelay);
+};
+
+fn.delayFor = fn.flip(fn.delay);
+
+fn.delayed = function (handler, msDelay) {
+	return function () {
+		return fn.delay(fn.partial(handler, fn.toArray(arguments)), msDelay);
+	};
+};
+
+fn.delayedFor = fn.flip(fn.delayed);
+
+fn.async = fn.compose(fn.partial(fn.delayedFor, 0));
+
+fn.throttle = function (handler, msDelay) {
+	var throttling;
+
+	return function () {
+		var args = fn.toArray(arguments);
+
+		if (throttling) {
+			return;
+		}
+
+		throttling = fn.delay(function () {
+			throttling = false;
+
+			fn.apply(handler, args);
+		}, msDelay);
+	};
+};
+
+fn.debounce = function (handler, msDelay) {
+	var debouncing;
+
+	return function () {
+		var args = fn.toArray(arguments);
+
+		if (debouncing) {
+			clearTimeout(debouncing);
+		}
+
+		debouncing = fn.delay(function () {
+			debouncing = false;
+
+			fn.apply(handler, args);
+		}, msDelay);
+	};
 };
     return fn;
 }));
