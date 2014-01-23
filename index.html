@@ -1,187 +1,512 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="fn.js | A JavaScript library built to encourage a functional programming style &amp; strategy.">
+	<meta name="author" content="Eli Perelman">
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="fn.js : Functional programming strategy library for JavaScript" />
+	<title>fn.js | A JavaScript library built to encourage a functional programming style &amp; strategy.</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300|Bree+Serif" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/prism.css" />
+	<link rel="stylesheet" href="css/styles.css" />
 
-    <title>fn.js</title>
-  </head>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="banner">
+		<div class="navbar-wrapper">
+			<div class="container">
+				<div class="navbar navbar-default" role="navigation">
+					<div class="container">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav text-center">
+								<li><a href="#intro">
+									<i class="fa fa-lightbulb-o"></i> Introduction
+								</a></li>
+								<li><a href="#install">
+									<i class="fa fa-cloud-download"></i> Installation
+								</a></li>
+								<li><a href="#docs">
+									<i class="fa fa-th-list"></i> Documentation
+								</a></li>
+								<li><a href="https://github.com/eliperelman/fn.js">
+									<i class="fa fa-github-square"></i> View on GitHub
+								</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-  <body>
+		<div class="container">
+			<div class="row brand">
+				<div class="col-sm-offset-4 col-sm-4 brand">
+					<img src="images/logo.png" alt="fn.js" class="img-responsive logo" />
+				</div>
+			</div>
+			<div class="row heading">
+				<div class="col-sm-offset-2 col-sm-8">
+					<h1 class="text-center">
+						A JavaScript library built to encourage a functional programming style &amp; strategy.
+					</h1>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/eliperelman/fn.js">View on GitHub</a>
+	<div class="container marketing">
+		<div class="row">
+			<div class="col-lg-4">
+				<i class="fa fa-compass fa-3x"></i>
+				<h2>Functional First</h2>
+				<p>
+					<em>fn.js</em> aims to support functional practices over performance or established conventions. In order to guide you on the right path, <em>fn.js</em> internals force avoidance of side effects, object mutation, and function state.
+				</p>
+			</div>
 
-          <h1 id="project_title">fn.js</h1>
-          <h2 id="project_tagline">Functional programming strategy library for JavaScript</h2>
+			<div class="col-lg-4">
+				<i class="fa fa-code fa-3x"></i>
+				<h2>Run Everywhere</h2>
+				<p><em>fn.js</em> runs in the Node.js or in the browser using normal script tags or via an AMD loader such as RequireJS.</p>
+			</div>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/eliperelman/fn.js/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/eliperelman/fn.js/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+			<div class="col-lg-4">
+				<i class="fa fa-github-alt fa-3x"></i>
+				<h2>Open Source</h2>
+				<p><em>fn.js</em> is MIT licensed and hosted on GitHub. Bug reports, feature recommendations, and pull requests are encouraged and welcomed.</p>
+			</div>
+		</div>
+	</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="fnjs" class="anchor" href="#fnjs"><span class="octicon octicon-link"></span></a>fn.js</h1>
+	<hr/>
 
-<p><code>fn.js</code> is a library that forms a strategy for functional programming in JavaScript. This library differs from other similar libraries you may be used to as it strives to achieve purer adherence to functional programming tenets.</p>
+	<div class="container">
+		<h1 id="install">Installation</h1>
+		<br/>
 
-<pre><code>NOTE: This project is in early stages and may undergo breaking changes
-while we work to make it much more robust and feature complete.
+<h4>Browser - Script Include</h4>
+<pre class="language-markup"><code>&lt;script src="path/to/fn.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	// fn now available
+&lt;/script&gt;</code></pre>
+<br/>
+
+<h4>Browser - AMD/RequireJS</h4>
+<pre class="language-javascript"><code>require.config({
+	paths: {
+		fn: 'path/to/fn'
+	}
+});
 </code></pre>
 
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<pre class="language-javascript"><code>define(['fn'], function (fn) {
+	// fn now available
+});
+</code></pre>
+<br/>
 
-<p><code>fn.js</code> is a UMD module, so it can be used in the browser, Node.js, and AMD/require.js environments.</p>
+<h4>Node.js</h4>
+<pre class="language-bash"><code># make sure to put fn.js, NOT just fn
+$ npm install fn.js</code></pre>
 
-<h4>
-<a name="nodejs" class="anchor" href="#nodejs"><span class="octicon octicon-link"></span></a>Node.js</h4>
+<pre class="language-javascript"><code>var fn = require('fn.js');
+// fn now available
+</code></pre>
+<br/>
 
-<div class="highlight highlight-sh"><pre>npm install fn.js
-</pre></div>
+	</div>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fn.js'</span><span class="p">);</span>
-</pre></div>
+	<hr/>
 
-<h4>
-<a name="amd-requirejs" class="anchor" href="#amd-requirejs"><span class="octicon octicon-link"></span></a>AMD require.js</h4>
+	<div class="container introduction">
+		<h1 id="intro">Introduction</h1>
 
-<div class="highlight highlight-js"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-    <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">fn</span><span class="o">:</span> <span class="s1">'path/to/fn'</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</pre></div>
+		<p>
+			<em>fn.js</em> is an opinionated JavaScript library that pushes you to to adopt strategies that encourage a functional programming style. I do not purport to be a master of functional programming especially as it relates to mathematical concepts, and I do not expect you to be either. Rather, <em>fn.js</em> provides functionality that you may be used to in Underscore.js or Lodash, but in a way that lends itself to greater self-composability and support of core functional programming tenets.
+		</p>
 
-<div class="highlight highlight-js"><pre><span class="nx">define</span><span class="p">([</span><span class="s1">'fn'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// fn now available</span>
-<span class="p">};</span>
-</pre></div>
+		<h3>Core Functional Programming Tenets</h3>
 
-<h4>
-<a name="traditional-browser-script-include" class="anchor" href="#traditional-browser-script-include"><span class="octicon octicon-link"></span></a>Traditional browser script include</h4>
+		<h5>Avoidance of Side Effects</h5>
+		<p>
+			The concept of side effects is closely related to the design pattern of the Single Responsibility Principle, or as I like to say: "A function should do one thing, and do it well." Any function that does something other than its single intended purpose is said to have side effects. In pure functional programming languages side effects are not allowed, but this is JavaScript and everything is fair game and must be enforced with conventions. <em>fn.js</em> prevents side effects from function context state, e.g. <code>this</code>, by never applying a function's context upon execution. This may cause some pain points for code that is already heavily object-oriented or relies a lot on prototypes. Instead, <em>fn.js</em> encourages you to provide a function's data by passing it as arguments, thereby avoiding side effects.
+		</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"path/to/fn.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script&gt;</span>
-    <span class="c1">// fn now available</span>
-<span class="nt">&lt;/script&gt;</span>
-</pre></div>
+		<h5>Referential Transparency</h5>
+		<p>
+			In object-oriented or classic programming applications, the flow of code is controlled by creating objects that mimic real-world or virtual beings. As an example, if you were creating an application that allowed users to purchase a vehicle, you might create a <code>Vehicle</code> class or prototype to model the interaction that a user performs in customizing their vehicle. As a <code>Vehicle</code> instance is modified, other functionality in an application is triggered to execute, and so continues the flow.
+		</p>
 
-<h2>
-<a name="functional-programming" class="anchor" href="#functional-programming"><span class="octicon octicon-link"></span></a>Functional Programming</h2>
+		<p>
+			In order to control the flow of the program, you must modify the state of objects or the state of an application. Different outcomes are possible based on the state of those objects or the application. In this manner, we can say that object-orientation lacks referential transparency.
+		</p>
 
-<p>Functional programming, as opposed to imperative programming, is a programming paradigm where the flow of an application's code is directed by functions, not objects or procedures. If it helps, you may try to imagine functional programming as the opposite of object-oriented programming even though the parallels are not completely one-to-one.</p>
+		<p>
+			Referential transparency is the ability of code to be evaluated in a predictable manner, not influenced by external state. Code that has achieved referential transparency is only affected by arguments that are passed to it, and changing state in the application has no effect. That same code should always output the same value for a given set of arguments, and only changing those arguments can a value be different.
+		</p>
 
-<p>Functional programming often involves creating abstractions through several layers of functions or function passing. Functional programming is often not more performant, but rather writing code becomes more efficient. Expressions can be written in a much more elegant and terse manner. Functional programming strives to employ some core tenets:</p>
+		<p>
+			In object-orientation, changing the state of the <code>Vehicle</code> can change how functionality on the rest of the site works. In functional programming, we create functions that reads nothing external, only arguments passed to it.
+		</p>
 
-<h3>
-<a name="referential-transparency" class="anchor" href="#referential-transparency"><span class="octicon octicon-link"></span></a>Referential Transparency</h3>
+		<h5>Immutability</h5>
+		<p>
+			Immutability, or the inability for variables to changes their values once created. In other words, all things created should strive to be constants. In JavaScript there is no internal mechanism to enforce this as there is in pure functional programming languages like Haskell and friends. JavaScript is dynamic and without strict typing, and so keeping variables immutable in a codebase is merely a convention and cannot be enforced by <em>fn.js</em>. With that being said, <em>fn.js</em> strives to adhere to this rule and all methods used should treat all arguments passed as immutable. For example, using <code>.map</code> or <code>.reverse</code> will give you back new arrays, not mutate your existing arrays.
+		</p>
 
-<p>In object-oriented or classic programming applications, the flow of code is controlled by creating objects that mimic real-world or virtual beings. As an example, if you were creating an application that allowed users to purchase a vehicle, you might create a <code>Vehicle</code> class or prototype to model the interaction that a user performs in customizing their vehicle. As a <code>Vehicle</code> instance is modified, other functionality in an application is triggered to execute, and so continues the flow.</p>
+		<h5>Higher-Order Functions</h5>
+		<p>
+			Functional programming is made possible through the use of higher-order functions. A higher-order function is a function that can accept functions as arguments, and can even return a function. Higher-order functions facilitate some interesting techniques:
+		</p>
 
-<p>In order to control the flow of the program, you must modify the state of objects or the state of an application. Different outcomes are possible based on the state of those objects or the application. In this manner, we can say that object-orientation lacks <em>referential transparency</em>.</p>
+		<ul>
+			<li>Strategy pattern through composition</li>
+			<li>Application and currying</li>
+			<li>Recursion</li>
+			<li>Operator and Mathematical computation</li>
+			<li>Visitor pattern through folding</li>
+		</ul>
+	</div>
 
-<p><em>Referential transparency</em> is the ability of code to be evaluated in a predictable manner, not influenced by external state. Code that has achieved referential transparency is only affected by arguments that are passed to it, and changing state in the application has no effect. That same code should always output the same value for a given set of arguments, and only changing those arguments can a value be different.</p>
 
-<p>In object-orientation, changing the state of the <code>Vehicle</code> can change how functionality on the rest of the site works. In functional programming, we create functions that reads nothing external, only arguments passed to it.</p>
+	<hr/>
 
-<p>Compare the following functions:</p>
+	<div class="container">
+		<h1 id="docs">Documentation</h1>
+		<br/>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">now</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+		<div class="row">
+			<div class="col-md-12 panel-group" id="documentation">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#toArray">
+								<code>fn.toArray( collection )</code>
+							</a>
+						</h4>
+					</div>
 
-<span class="kd">var</span> <span class="nx">getLater</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">offset</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">now</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
-<span class="p">};</span>
+					<div id="toArray" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">getLater</span><span class="p">(</span> <span class="mi">15000</span> <span class="p">)</span> <span class="p">);</span> <span class="c1">// invocation</span>
-</pre></div>
+								Convert an array-like value to an actual array. Useful for converting things like the <code>arguments</code> object, <code>NodeList</code>s, etc. to arrays. This will then allow usage of native array methods on the new collection.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">getLater</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">offset</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
-<span class="p">};</span>
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>collection</code></td>
+										<td>mixed (array-like value)</td>
+										<td>The array-like collection to convert to an array</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">getLater</span><span class="p">(</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">(),</span> <span class="mi">15000</span> <span class="p">)</span> <span class="p">);</span> <span class="c1">// invocation</span>
-</pre></div>
+								<code>Array</code>
+							</div>
+							<div class="example">
+								<strong>Example</strong>
 
-<p>In the first snippet, the <code>getLater</code> function accepts a single argument, but depends on external state from the <code>now</code> variable in order to properly operate. The second accepts both values as arguments, and so has no external dependency on state. #1 lacks referential transparency while #2 achieves it. By looking only at the invocation of <code>getLater</code> in each example, you cannot reliably predict the outcome of #1, while you can with #2.</p>
+<pre class="language-javascript"><code>var echo = function () {
+	return fn.toArray( arguments );
+};
 
-<p>Functional programming inherently tries to avoid making decisions based on state or mutable data that exists external to a function.</p>
+echo( 1, 2, 3 ); // [ 1, 2, 3 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#cloneArray">
+								<code>fn.cloneArray( array )</code>
+							</a>
+						</h4>
+					</div>
 
-<h3>
-<a name="higher-order-functions" class="anchor" href="#higher-order-functions"><span class="octicon octicon-link"></span></a>Higher-order Functions</h3>
+					<div id="cloneArray" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
 
-<p>Functional programming is made possible through the use of higher-order functions. A higher-order function is a function that can <em>accept</em> functions as arguments, and can even <em>return</em> a function.</p>
+								An alias to the <code>fn.toArray</code> method. Merely serves as a semantic method for conveying intent when copying arrays.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
 
-<p>Higher-order functions facilitate interesting techniques:</p>
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>array</code></td>
+										<td>Array</td>
+										<td>The array to be copied</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
 
-<ol>
-<li>Strategy pattern through <em>composition</em>
-</li>
-<li>
-<em>Application</em> and <em>currying</em>
-</li>
-<li><em>Recursion</em></li>
-<li>Operator and Mathematical <em>computation</em>
-</li>
-<li>Visitor pattern through <em>folding</em>
-</li>
-</ol><h3>
-<a name="immutability" class="anchor" href="#immutability"><span class="octicon octicon-link"></span></a>Immutability</h3>
+								<code>Array</code>
+							</div>
+							<div class="example">
+								<strong>Example</strong>
 
-<p>Another core tenant of functional programming is <em>immutability</em>, or the inability for variables to changes their values once created. In other words, all things created should strive to be constants. In JavaScript there is no internal mechanism to enforce this as there is in pure functional programming languages like Haskell and friends. JavaScript is dynamic and without strict typing, and so keeping variables immutable in a codebase is merely a convention and cannot be enforced by fn.js. With that being said, fn.js strives to adhere to this rule and all methods used should treat all arguments passed as immutable. For example, using <code>.map</code> or <code>.reverse</code> will give you back new arrays, not mutate your existing arrays.</p>
+<pre class="language-javascript"><code>var names = [ 'Bill', 'Jenn', 'Doug' ];
+	fn.cloneArray( names ); // [ 'Bill', 'Jenn', 'Doug' ];
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#type">
+								<code>fn.type( value )</code>
+							</a>
+						</h4>
+					</div>
 
-<h3>
-<a name="side-effects" class="anchor" href="#side-effects"><span class="octicon octicon-link"></span></a>Side Effects</h3>
+					<div id="type" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
 
-<p>The concept of side effects is closely related to the design pattern of the Single Responsibility Principle, or as I like to say: "A function should do one thing, and do it well." Any function that does something other than its single intended purpose is said to have <em>side effects</em>. In pure functional programming languages side effects are not allowed, but this is JavaScript and everything is fair game and must be enforced with conventions. For example, take the following method:</p>
+								Retrieves a handy usable string type for any value. Note that this does not use the `typeof` operator, but rather the lowercase version of its true underlying name. Also works on `null` and arrays.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>value</code></td>
+										<td>mixed (any value)</td>
+										<td>The value to fetch the type for</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
 
-<p>This <code>add</code> method takes 2 numbers and adds them together, and it only does its single purpose; it has no side effects. Now:</p>
+								<code>String</code> Lowercase true internal type representation
+							</div>
+							<div class="example">
+								<strong>Example</strong>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<pre class="language-javascript"><code>fn.type( 'Bill' ); // "string"
+fn.type( 3 ); // "number"
+fn.type( {} ); // "object"
+fn.type( [] ); // "array"
+fn.type( function () {} ); // "function"
+fn.type( null ); // "null"
+fn.type( undefined ); // "undefined"
+fn.type( /Hello World/i ); // "regexp"
+fn.type( new Date() ); // "date"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#is">
+								<code>fn.is( value, type )</code>
+							</a>
+						</h4>
+					</div>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+					<div id="is" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
 
-    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
+								Determines whether the supplied value is of the supplied type.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
 
-<p>Here the <code>add</code> method decides to log the results of the addition before returning the result. While the function still achieves its primary purpose, it is no longer free from side effects as it also logs a value in additional to trying to accomplish its goal.</p>
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>value</code></td>
+											<td>mixed (any value)</td>
+											<td>The value to fetch the type for</td>
+										</tr>
+										<tr>
+											<td><code>type</code></td>
+											<td><code>String</code></td>
+											<td>The string type to compare against the supplied type of the value. Note that this string type is the same format as the ones returned by <code>fn.type</code>.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
 
-<p>Side effects and state mechanisms should be solved through other means of functional programming, e.g. monads.</p>
+								<code>Boolean</code>: <code>true</code> if the value is of the supplied type, otherwise <code>false</code>
+							</div>
+							<div class="example">
+								<strong>Example</strong>
 
-<h2>
-<a name="coding-guide" class="anchor" href="#coding-guide"><span class="octicon octicon-link"></span></a>Coding Guide</h2>
+<pre class="language-javascript"><code>fn.is( 'Bill', 'string' ); // true
+fn.is( 3, 'undefined' ); // false
+fn.is( {}, 'object' ); // true
+fn.is( [], 'function' ); // false
+fn.is( function () {}, 'function' ); // true
+fn.is( null, 'undefined' ); // false
+fn.is( undefined, 'null' ); // false
+fn.is( /Hello World/i, 'regexp' ); // true
+fn.is( new Date(), 'number' ); // false
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#apply">
+								<code>fn.apply( handler, args )</code>
+							</a>
+						</h4>
+					</div>
 
-<p>Any code committed to this library must be evaluated for its adherence to referential transparency and efficient use of higher-order functions. As such, all external contributions must be made through pull request to facilitate the discussion around any new inclusions. Some functions by nature directly violate or bend referential transparency, so it is not always possible to adhere to this principle in every case, and exceptions can be made in those cases.</p>
-      </section>
-    </div>
+					<div id="apply" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">fn.js maintained by <a href="https://github.com/eliperelman">eliperelman</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+								Apply an array of values as individual arguments to the supplied handler function.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
 
-    
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>handler</code></td>
+										<td><code>Function</code></td>
+										<td>The function to have arguments applied to</td>
+									</tr>
+									<tr>
+										<td><code>args</code></td>
+										<td><code>Array</code></td>
+										<td>The collection of values to apply individually as arguments to the handler</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
 
-  </body>
+								The return value of the handler function.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var fullname = function ( firstName, lastName ) {
+	return firstName + ' ' + lastName;
+};
+
+fn.apply( fullname, [ 'Bill', 'Smith' ] ); // "Bill Smith"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#concat">
+								<code>fn.concat( ...arrays )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="concat" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Combine all supplied array arguments into a single array.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>arrays</code></td>
+											<td><code>Array</code></td>
+											<td>Each argument is an individual array to be merged with the other supplied arrays.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Array</code> A single array of all supplied arguments.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.concat( [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ); // [ 'a', 1, 'b', 2, 'c', 3 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/><br/>
+
+	<hr/>
+
+	<div class="container">
+		<footer>
+			<p>&copy; Eli Perelman. <em>fn.js</em> use is granted under the <a href="http://choosealicense.com/licenses/mit/">MIT License</a>.
+		</footer>
+	</div>
+
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="js/prism.js"></script>
+</body>
 </html>

@@ -1,0 +1,107 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+	color: #5a5a5a;
+	font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Bree Serif', serif;
+}
+
+.banner {
+	margin-bottom: 60px;
+	background-image: url(../images/mochaGrunge_@2X.png);
+	color: #fff;
+	padding: 20px 0;
+}
+
+.banner .navbar-wrapper {
+	margin-top: 0;
+}
+
+.banner .logo {
+	margin: 0 auto;
+}
+
+.banner .brand {
+	margin-top: 20px;
+}
+
+.banner h1 {
+	font-weight: 400;
+}
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.marketing h2 {
+	font-weight: normal;
+}
+.marketing .col-lg-4 p {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.introduction h1, .introduction h3, .introduction h5 {
+	margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+
+	/* Remove the edge padding needed for mobile */
+	.marketing {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.navbar-wrapper .container {
+		padding-left:  15px;
+		padding-right: 15px;
+	}
+	.navbar-wrapper .navbar {
+		padding-left:  0;
+		padding-right: 0;
+	}
+
+	/* The navbar becomes detached from the top, so we round the corners */
+	.navbar-wrapper .navbar {
+		border-radius: 4px;
+	}
+
+	.banner .navbar .navbar-nav {
+		display: inline-block;
+		float: none;
+	}
+
+	.banner .navbar .navbar-collapse {
+		text-align: center;
+	}
+
+	.banner .navbar-nav > li > a {
+		padding-bottom: 10px;
+	}
+
+}
+
+/*.sidebar {*/
+	/*background-color: #f8f8f8;*/
+	/*border-radius: 5px;*/
+/*}*/
+
+
+#documentation .panel-body strong {
+	display: block;
+	margin-top: 14px;
+	margin-bottom: 6px;
+}
