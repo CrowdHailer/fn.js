@@ -690,13 +690,891 @@ fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
 							<div class="example">
 								<strong>Example</strong>
 
+<pre class="language-javascript"><code>fn.each( function ( value ) {
+	console.log( value );
+}, [ 'Jim', 'Elijah', 'Jenn', 'Julie' ] );
+// "Jim"
+// "Elijah"
+// "Jenn"
+// "Julie"
+</code></pre>
 <pre class="language-javascript"><code>fn.each( function ( value, index, collection, additional1, additional2 ) {
 	console.log( value ); // "Jim"
 	console.log( index ); // 0
 	console.log( collection ); // [ 'Jim', 'Elijah', 'Jenn', 'Julie' ]
 	console.log( additional1 ); // "optional"
 	console.log( additional2 ); // "arguments"
-}, [ 'Jim', 'Elijah', 'Jenn', 'Julie' ], [ 'optional', 'arguments' ]);
+}, [ 'Jim', 'Elijah', 'Jenn', 'Julie' ], [ 'optional', 'arguments' ] );
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#reduce">
+								<code>fn.reduce( handler, collection, accumulator, [ params ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="reduce" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Reduce a collection to a single value by processing each value in the collection through the handler function. Current reduction progress is tracked with the accumulator argument.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>handler</code></td>
+										<td><code>Function(</code> <code>accumulator,</code> <code>index,</code> <code>...params</code> <code>)</code></td>
+										<td>The function to execute for each value. This function will be passed the accumulator, current item for the iteration, its index in the collection, and any optionally supplied arguments. Return a value from this function to set the accumulator for the next function invocation.</td>
+									</tr>
+									<tr>
+										<td><code>collection</code></td>
+										<td><code>Array</code></td>
+										<td>The collection to iterate over.</td>
+									</tr>
+									<tr>
+										<td><code>accumulator</code></td>
+										<td>Any</td>
+										<td>A value used to accumulate reduction values between function passes.</td>
+									</tr>
+									<tr>
+										<td>Optional <code>params</code></td>
+										<td><code>Array</code></td>
+										<td>An array of additional arguments to pass to handler.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								The final value of the accumulator.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.reduce( function ( accumulator, value, index ) {
+	return accumulator + value + index;
+}, [ 1, 2, 3 ], 0 );
+// 9
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#filter">
+								<code>fn.filter( expression, collection )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="filter" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Create a new array from the supplied collection by passing each value through a filtering expression. If the expression returns truthy, the value will be placed into the new collection.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>expression</code></td>
+										<td><code>Function(</code> <code>currentValue,</code> <code>index,</code> <code>)</code></td>
+										<td>The function to execute for each value in the collection. Returning a truthy value from the expression will place the <code>currentValue</code> into the new array, NOT the returned value.</td>
+									</tr>
+									<tr>
+										<td><code>collection</code></td>
+										<td><code>Array</code></td>
+										<td>The collection to iterate over.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Array</code> A new array containing the filtered results of the original collection.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.filter( function ( value ) {
+	return value % 2 === 0;
+}, [ 0, 1, 2, 3, 4, 5, 6 ] );
+// [ 0, 2, 4, 6 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#map">
+								<code>fn.map( handler, collection, [ params ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="map" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Create a new array from the supplied collection by returning a new value from each iteration of the handler function.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function(</code> <code>currentValue,</code> <code>index,</code> <code>collection,</code> <code>...params</code> <code>)</code></td>
+											<td>The function to execute for each value in the collection. Return any value from the function to have it placed into the new array. This function will be passed the current iteration value, the index of that value in collection, the original collection, and any applied arguments from <code>params</code>.</td>
+										</tr>
+										<tr>
+											<td><code>collection</code></td>
+											<td><code>Array</code></td>
+											<td>The collection to iterate over.</td>
+										</tr>
+										<tr>
+											<td>Optional <code>params</code></td>
+											<td><code>Array</code></td>
+											<td>An optional array of values to apply as additional arguments to the handler function.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Array</code> A new array containing a set of values returned from the handler function.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.map( function ( value ) {
+	return value * 2;
+}, [ 0, 1, 2, 3, 4, 5, 6 ] );
+// [ 0, 2, 4, 6, 8, 10, 12 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#reverse">
+								<code>fn.reverse( array )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="reverse" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Create a new array with the contained values in the reverse order.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>array</code></td>
+											<td><code>Array</code></td>
+											<td>The array to reverse.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Array</code> A new array containing reversed values.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.reverse( [ 0, 1, 2, 3, 4 ] ); // [ 4, 3, 2, 1, 0 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#compose">
+								<code>fn.compose( ...functions )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="compose" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Create a new function that will compose and invoke functions from right-to-left, passing the return values from each invocation to the next successive function.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>...functions</code></td>
+										<td><code>Function</code></td>
+										<td>Each argument is a function that should be called when the new function is invoked. Functions are executed from right-to-left.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function composed of the <code>functions</code> arguments. Any arguments passed to this new function will be passed to the first function on the right, and each successive function will receive the return value of the previous function invocation.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var addSalutation = function ( name ) {
+	return 'Grand Master ' + name;
+};
+
+var fullName = function ( person ) {
+	return person.firstName + ' ' + person.lastName;
+};
+
+var logPerson = fn.compose( console.log, addSalutation, fullName );
+
+logPerson( { firstName: 'Abe', lastName: 'Lincoln' } ); // logs: "Grand Master Abe Lincoln"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#pipeline">
+								<code>fn.pipeline( ...functions )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="pipeline" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								The left-associative version of <code>fn.compose</code>. Works identically except that functions are invoked from left-to-right
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>...functions</code></td>
+										<td><code>Function</code></td>
+										<td>Each argument is a function that should be called when the new function is invoked. Functions are executed from left-to-right.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function composed of the <code>functions</code> arguments. Any arguments passed to this new function will be passed to the first function on the left, and each successive function will receive the return value of the previous function invocation.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var addSalutation = function ( name ) {
+	return 'Grand Master ' + name;
+};
+
+var fullName = function ( person ) {
+	return person.firstName + ' ' + person.lastName;
+};
+
+var logPerson = fn.pipeline( fullName, addSalutation, console.log );
+
+logPerson( { firstName: 'Abe', lastName: 'Lincoln' } ); // logs: "Grand Master Abe Lincoln"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#prop">
+								<code>fn.prop( name, property )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="prop" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Fetch the value from an object matching the specified key/property name. <em>IMPORTANT NOTE: this method is already curried, so you can just provide <code>name</code> and receive a new function awaiting the <code>property</code>.</em>
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>name</code></td>
+										<td>Any</td>
+										<td>The object or primitive from which to fetch the key/property value.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								Mixed. Returns the value contained within the specified object.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.prop( 'firstName', { firstName: 'Abe', lastName: 'Lincoln' } ); // "Abe"
+</code></pre>
+<pre class="language-javascript"><code>var getFirstName = fn.prop( 'firstName' );
+
+getFirstName( { firstName: 'Abe', lastName: 'Lincoln' } ); // "Abe"
+getFirstName( { firstName: 'George', lastName: 'Washington' } ); // "George"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#merge">
+								<code>fn.merge( ...objects )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="merge" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Merge the properties and values from all supplied objects into a new object. Properties contained in objects on the right will overwrite properties of objects on the left. Note that this is not a deep merge, and that a new object is returned.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>...objects</code></td>
+										<td><code>Object</code></td>
+										<td>Each argument is an object which will have its properties copied into the new object. Objects on the right have a high property-priority than those on the left.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Object</code> Returns a new object which is a shallow merge of all supplied objects.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.merge( { firstName: 'Abe' }, { lastName: 'Lincoln' }, { favoriteAnimal: 'Velociraptor' } );
+// { firstName: "Abe", lastName: "Lincoln", favoriteAnimal: "Velociraptor" }
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#memoize">
+								<code>fn.memoize( handler, [ serializer ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="memoize" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Return a new function that caches invocations of the handler. The default serializer uses a combination of value types and <code>JSON.stringify</code> is used to determine cache keys, but an optional serializing function can be provided for custom serialization
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>The function for which execution caching is being performed.</td>
+										</tr>
+										<tr>
+											<td>Optional <code>serializer</code></td>
+											<td><code>Function(</code> <code>args</code> <code>)</code></td>
+											<td>The function which generates cache keys. The serializer function is passed a single array which contains all the arguments passed to the handler.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that caches duplicate invocations.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var cached$ = fn.memoize( jQuery );
+// First pass will go directly to jQuery
+cached$( '.container' );
+
+// Using the same selector again will return the exact same object as before,
+// without hitting the DOM again
+cached$( '.container' );
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#flip">
+								<code>fn.flip( handler )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="flip" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Return a new function which accepts arguments in the reverse order that the original handler specifies.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function which needs to accept arguments in reverse order. The arguments will still be injected into this function in the left-to-right order.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that accepts arguments in the reverse order of <code>handler</code>.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var displayName = function ( firstName, lastName ) {
+	return firstName + ' ' + lastName;
+};
+
+var flippedDisplayName = fn.flip( displayName );
+
+displayName( 'Abe', 'Lincoln' ); // "Abe Lincoln"
+flippedDisplayName( 'Lincoln', 'Abe' ); // "Abe Lincoln"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#delay">
+								<code>fn.delay( handler, msDelay )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="delay" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Invoke a function after <code>msDelay</code> milliseconds. Note that this will yield to the event loop and be invoked after other statements.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function to invoke after a delay</td>
+										</tr>
+										<tr>
+											<td><code>msDelay</code></td>
+											<td><code>Number</code></td>
+											<td>The number of milliseconds to wait before invoking the handler.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Number</code> A number representing the ID of the delayed handler. Handler invocation be prevented with <code>clearTimeout( number )</code>.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.delay( function () {
+	console.log( 'Aliens...' );
+}, 500 );
+// logs: "Aliens" after 500 milliseconds
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#delayFor">
+								<code>fn.delayFor( msDelay, handler )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="delayFor" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Invoke a function after <code>msDelay</code> milliseconds. Note that this will yield to the event loop and be invoked after other statements. This is the flipped version of <code>fn.delay</code>.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>msDelay</code></td>
+											<td><code>Number</code></td>
+											<td>The number of milliseconds to wait before invoking the handler.</td>
+										</tr>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function to invoke after a delay</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Number</code> A number representing the ID of the delayed handler. Handler invocation be prevented with <code>clearTimeout( number )</code>.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.delay( 500, function () {
+	console.log( 'Aliens...' );
+});
+// logs: "Aliens" after 500 milliseconds
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#delayed">
+								<code>fn.delayed( handler, msDelay )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="delayed" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Returns a new function that will always invoke the handler after <code>msDelay</code> milliseconds.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>handler</code></td>
+										<td><code>Function</code></td>
+										<td>A function to invoke after a delay.</td>
+									</tr>
+									<tr>
+										<td><code>msDelay</code></td>
+										<td><code>Number</code></td>
+										<td>The number of milliseconds to wait before invoking the handler.</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function that always executes after the specified amount of time. This function will have its arguments applied to the handler upon invocation.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var notifyAliens = fn.delayed( function () {
+	console.log( 'Aliens...' );
+}, 500 );
+
+// These functions are always invoked after a 500ms delay
+notifyAliens();
+notifyAliens();
+notifyAliens();
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#delayedFor">
+								<code>fn.delayedFor( msDelay, handler )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="delayedFor" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Returns a new function that will always invoke the handler after <code>msDelay</code> milliseconds. Note that this will yield to the event loop and be invoked after other statements. This is the flipped version of <code>fn.delayed</code>.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>msDelay</code></td>
+											<td><code>Number</code></td>
+											<td>The number of milliseconds to wait before invoking the handler.</td>
+										</tr>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function to invoke after a delay.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that is always invoked after the specified amount of time.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var notifyAliens = fn.delayedFor( 500, function () {
+	console.log( 'Aliens...' );
+});
+
+// These functions always invoke after a 500ms delay
+notifyAliens();
+notifyAliens();
+notifyAliens();
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#async">
+								<code>fn.async( handler )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="async" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Returns a new function that will always defer execution of the handler to the end of the event loop.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function to invoke after yielding to the event loop.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that is always invoked after other queued statements in the event loop.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var asyncLog = fn.async( console.log );
+asyncLog( 'Invalid username or password.' ); // logs after the event loop has yielded.
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#throttle">
+								<code>fn.throttle( handler, msDelay )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="throttle" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Returns a new function that can only be invoked once within <code>msDelay</code> milliseconds. Any calls that occur before the allotted time has passed are disregarded. The handler will be invoked at the end of the delay.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function for which invocations are throttled.</td>
+										</tr>
+										<tr>
+											<td><code>msDelay</code></td>
+											<td><code>Number</code></td>
+											<td>The amount of time in milliseconds to wait between handler invocations.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that disregards invocations that occur before the specified delay has passed.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>$( window ).on( 'resize', fn.throttle( function () {
+	console.log( 'Window resized!' ); // will only log once every 100ms while the window is resizing
+}, 100 ));
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#debounce">
+								<code>fn.debounce( handler, msDelay )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="debounce" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Returns a new function that can only be invoked once within <code>msDelay</code> milliseconds. Any calls that occur before the allotted time will cause the timer to restart. The handler is invoked at the end of the delay
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>A function for which invocations are debounced.</td>
+										</tr>
+										<tr>
+											<td><code>msDelay</code></td>
+											<td><code>Number</code></td>
+											<td>The amount of time in milliseconds to wait before a handler can be invoked.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> Returns a new function that defers execution until the specified amount of time has passed. Any calls before the timer has passed will cause the timer to reset.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>$( document ).on( 'keypress', fn.debounce( function () {
+	// only allow the key to be pressed every 200ms. This handler will continuously
+	// defer itself until the key has been quiet for 200ms.
+}, 200));
 </code></pre>
 							</div>
 						</div>
@@ -718,7 +1596,7 @@ fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
 
 	<!-- Bootstrap core JavaScript
 	================================================== -->
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="js/prism.js"></script>
 </body>
