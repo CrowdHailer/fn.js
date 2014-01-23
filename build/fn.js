@@ -64,9 +64,11 @@ fn.concat = function () {
 
 fn.partial = function () {
 	var args = fn.toArray(arguments);
+	var handler = args[0];
+	var partialArgs = args.slice(1);
 
 	return function () {
-		return fn.apply(args[0], fn.concat(args.slice(1), fn.toArray(arguments)) );
+		return fn.apply(handler, fn.concat(partialArgs, fn.toArray(arguments)) );
 	};
 };
 
