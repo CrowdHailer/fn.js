@@ -190,7 +190,7 @@ $ npm install fn.js</code></pre>
 	<hr/>
 
 	<div class="container">
-		<h1 id="docs">Documentation</h1>
+		<h1 id="docs">Documentation, <code>0.6.1</code></h1>
 		<br/>
 
 		<div class="row">
@@ -445,7 +445,6 @@ fn.apply( fullname, [ 'Bill', 'Smith' ] ); // "Bill Smith"
 						</div>
 					</div>
 				</div>
-
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -484,6 +483,220 @@ fn.apply( fullname, [ 'Bill', 'Smith' ] ); // "Bill Smith"
 								<strong>Example</strong>
 
 <pre class="language-javascript"><code>fn.concat( [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ); // [ 'a', 1, 'b', 2, 'c', 3 ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#partial">
+								<code>fn.partial( handler, [ ...args ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="partial" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Return a new version of the <code>handler</code> function whose supplied arguments have been pre-filled.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function</code></td>
+											<td>The function which will have partially applied arguments.</td>
+										</tr>
+										<tr>
+											<td>Optional <code>args</code></td>
+											<td>Any</td>
+											<td>Each argument is a value which will be pre-applied to the given handler function.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function with supplied arguments pre-applied.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var fullName = function ( firstName, lastName ) {
+	return firstName + ' ' + lastName;
+};
+
+var billName = fn.partial( fullName, 'Bill' );
+
+billName( 'Smith' ); // "Bill Smith"
+billName( 'Clinton' ); // "Bill Clinton"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#curry">
+								<code>fn.curry( handler, [ arity ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="curry" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Continuously partially apply a handler function until it receives all its expected requirements before invoking. Any remaining arguments will be passed on at invocation. Currying is dependent on being able to read how many arguments a function expects by having the declared with the handler, e.g <code>function (a, b, c) {}</code> will curry until it has received its 3rd argument. If the arguments declared with the function are not in line with what the function internally required, specify the <code>arity</code> argument.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>handler</code></td>
+										<td><code>Function</code></td>
+										<td>The function which will have its arguments curried.</td>
+									</tr>
+									<tr>
+										<td>Optional <code>arity</code></td>
+										<td><code>Number</code></td>
+										<td>How many arguments should be supplied before invoking the handler</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function which curries arguments until the the required amount has been met.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var fullName = fn.curry(function ( firstName, middleName, lastName ) {
+	return firstName + ' ' middleName + ' ' + lastName;
+});
+
+var billName = fullName( 'Bill' );
+
+billName( 'Damon' )( 'Smith' ); // "Bill Damon Smith"
+billName( 'Jefferson', 'Clinton' ); // "Bill Jefferson Clinton"
+fullName( 'Jenn', 'Anne', 'Cochran' ); // "Jenn Anne Cochran"
+fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#properties">
+								<code>fn.properties( object )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="properties" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Create an array of all the own properties/keys of an object.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>object</code></td>
+											<td><code>Object</code></td>
+											<td>The object for which to fetch the keys.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Array</code> An array of string keys.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var props = fn.properties( { firstName: 'Julie', lastName: 'Master' } ); // [ "firstName", "lastName" ]
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#each">
+								<code>fn.each( handler, collection, [ params ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="each" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								Execute a function for each value in the supplied collection. Optionally provide an array of additional arguments to be applied and passed into the function.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+										<tr>
+											<td><code>handler</code></td>
+											<td><code>Function(</code> <code>currentValue,</code> <code>index,</code> <code>collection</code>, <code>...params</code> <code>)</code></td>
+											<td>The function to execute for each value. This function will be passed the current item for the iteration, its index in the collection, the array collection itself, and any optionally supplied arguments.</td>
+										</tr>
+										<tr>
+											<td><code>collection</code></td>
+											<td><code>Array</code></td>
+											<td>The collection to iterate over.</td>
+										</tr>
+										<tr>
+											<td>Optional <code>params</code></td>
+											<td><code>Array</code></td>
+											<td>An array of additional arguments to pass to handler.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								Nothing is returned from this method.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>fn.each( function ( value, index, collection, additional1, additional2 ) {
+	console.log( value ); // "Jim"
+	console.log( index ); // 0
+	console.log( collection ); // [ 'Jim', 'Elijah', 'Jenn', 'Julie' ]
+	console.log( additional1 ); // "optional"
+	console.log( additional2 ); // "arguments"
+}, [ 'Jim', 'Elijah', 'Jenn', 'Julie' ], [ 'optional', 'arguments' ]);
 </code></pre>
 							</div>
 						</div>
