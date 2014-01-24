@@ -41,14 +41,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
+.marketing .col-md-4 {
 	text-align: center;
 	margin-bottom: 20px;
 }
 .marketing h2 {
 	font-weight: normal;
 }
-.marketing .col-lg-4 p {
+.marketing .col-md-4 p {
 	margin-left: 10px;
 	margin-right: 10px;
 }
