@@ -182,7 +182,11 @@ fn.memoize.serialize = function (values) {
 
 fn.flip = function (handler) {
 	return function () {
-		return fn.apply(handler, fn.reverse(arguments));
+		var argumentsArray = fn.toArray(arguments);
+		var firstTwo = argumentsArray.slice(0, 2);
+		var rest = argumentsArray.slice(2);
+
+		return fn.apply(handler, fn.concat(fn.reverse(firstTwo), rest));
 	};
 };
 
@@ -237,5 +241,6 @@ fn.debounce = function (handler, msDelay) {
 		}, msDelay);
 	};
 };
+
     return fn;
 }));
