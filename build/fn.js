@@ -73,19 +73,26 @@ fn.partial = function () {
 };
 
 fn.curry = function (handler, arity) {
+	if (handler.curried) {return handler;}
 	arity = arity || handler.length;
 
-	return function curry() {
+	function curry() {
 		var args = fn.toArray(arguments);
 
 		if (args.length >= arity) {
 			return handler.apply(null, args);
 		}
 
-		return function () {
+		function inner() {
 			return curry.apply(null, args.concat(fn.toArray(arguments)) );
-		};
-	};
+		}
+
+		inner.curried = true;
+		return inner;
+	}
+
+	curry.curried = true;
+	return curry;
 };
 
 fn.properties = function (object) {
@@ -237,5 +244,6 @@ fn.debounce = function (handler, msDelay) {
 		}, msDelay);
 	};
 };
+
     return fn;
 }));
