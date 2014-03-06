@@ -62,25 +62,30 @@ fn.partial = function () {
 };
 
 fn.curry = function (handler, arity) {
-	if (handler.curried) {return handler;}
+	if (handler.curried) {
+		return handler;
+	}
+
 	arity = arity || handler.length;
 
-	function curry() {
+	var curry = function curry() {
 		var args = fn.toArray(arguments);
 
 		if (args.length >= arity) {
 			return handler.apply(null, args);
 		}
 
-		function inner() {
-			return curry.apply(null, args.concat(fn.toArray(arguments)) );
-		}
+		var inner = function () {
+			return curry.apply(null, args.concat(fn.toArray(arguments)));
+		};
 
 		inner.curried = true;
+
 		return inner;
-	}
+	};
 
 	curry.curried = true;
+
 	return curry;
 };
 
