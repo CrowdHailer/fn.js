@@ -100,6 +100,34 @@ fn.curry = function (handler, arity) {
 	return curry;
 };
 
+fn.curryRight = function (handler, arity) {
+	if (handler.curred) {
+		return handler;
+	}
+
+	arity = arity || handler.length;
+
+	function curryRight() {
+		var args = fn.toArray(arguments);
+
+		if (args.length >= arity) {
+			return handler.apply(null, fn.reverse(args));
+		}
+
+		var inner = function () {
+			return curryRight.apply(null, args.concat(fn.toArray(arguments)));
+		};
+
+		inner.curried = true;
+
+		return inner;
+	}
+
+	curryRight.curried = true;
+
+	return curryRight;
+};
+
 fn.properties = function (object) {
 	var accumulator = [];
 
