@@ -190,7 +190,7 @@ $ npm install fn.js</code></pre>
 	<hr/>
 
 	<div class="container">
-		<h1 id="docs">Documentation, <code>0.6.1</code></h1>
+		<h1 id="docs">Documentation, <code>0.7.0</code></h1>
 		<br/>
 
 		<div class="row">
@@ -714,7 +714,7 @@ fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#documentation" href="#reduce">
-								<code>fn.reduce( handler, collection, accumulator, [ params ] )</code>
+								<code>fn.reduce( handler, accumulator, collection, [ params ] )</code>
 							</a>
 						</h4>
 					</div>
@@ -737,14 +737,14 @@ fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
 										<td>The function to execute for each value. This function will be passed the accumulator, current item for the iteration, its index in the collection, and any optionally supplied arguments. Return a value from this function to set the accumulator for the next function invocation.</td>
 									</tr>
 									<tr>
-										<td><code>collection</code></td>
-										<td><code>Array</code></td>
-										<td>The collection to iterate over.</td>
-									</tr>
-									<tr>
 										<td><code>accumulator</code></td>
 										<td>Any</td>
 										<td>A value used to accumulate reduction values between function passes.</td>
+									</tr>
+									<tr>
+										<td><code>collection</code></td>
+										<td><code>Array</code></td>
+										<td>The collection to iterate over.</td>
 									</tr>
 									<tr>
 										<td>Optional <code>params</code></td>
@@ -764,7 +764,7 @@ fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
 
 <pre class="language-javascript"><code>fn.reduce( function ( accumulator, value, index ) {
 	return accumulator + value + index;
-}, [ 1, 2, 3 ], 0 );
+}, 0, [ 1, 2, 3 ] );
 // 9
 </code></pre>
 							</div>
