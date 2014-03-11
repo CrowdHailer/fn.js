@@ -9,7 +9,7 @@ describe('.reduce()', function () {
 
 		var result = fn.reduce(function (accumulator, value) {
 			return accumulator + value;
-		}, numbers, 0);
+		}, 0, numbers);
 
 		expect(result).to.equal(45);
 	});
@@ -19,7 +19,7 @@ describe('.reduce()', function () {
 
 		var result = fn.reduce(function (accumulator, value) {
 			return accumulator + value;
-		}, strings, '');
+		}, '', strings);
 
 		expect(result).to.equal('helloworldfoobarbaz');
 	});
@@ -29,7 +29,7 @@ describe('.reduce()', function () {
 
 		var result = fn.reduce(function (accumulator, value) {
 			return fn.concat(accumulator, value);
-		}, arrays, []);
+		}, [], arrays);
 
 		expect(result).to.have.length(6);
 		expect(result[0]).to.equal(1);
@@ -46,7 +46,7 @@ describe('.reduce()', function () {
 		var result = fn.reduce(function (accumulator, value) {
 			accumulator.push(value.name);
 			return accumulator;
-		}, people, []);
+		}, [], people);
 
 		expect(result).to.have.length(3);
 		expect(result[0]).to.equal('Bill');

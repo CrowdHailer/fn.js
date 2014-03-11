@@ -107,7 +107,7 @@ fn.each = function (handler, collection, params) {
 	}
 };
 
-fn.reduce = function (handler, collection, accumulator, params) {
+fn.reduce = function (handler, accumulator, collection, params) {
 	fn.each(function (value, index) {
 		accumulator = fn.apply(handler, fn.concat([ accumulator, value, index ], params));
 	}, collection);
@@ -119,7 +119,7 @@ fn.filter = function (expression, collection) {
 	return fn.reduce(function (accumulator, item, index) {
 		expression(item, index) && accumulator.push(item);
 		return accumulator;
-	}, collection, []);
+	}, [], collection);
 };
 
 fn.op['++'] = fn.partial(fn.op['+'], 1);
@@ -129,7 +129,7 @@ fn.map = function (handler, collection, params) {
 	return fn.reduce(function (accumulator, value, index) {
 		accumulator.push( fn.apply(handler, fn.concat([ value, index, collection ], params)) );
 		return accumulator;
-	}, collection, []);
+	}, [], collection);
 };
 
 fn.reverse = function (collection) {
@@ -142,7 +142,7 @@ fn.pipeline = function () {
 	return function () {
 		return fn.reduce(function (args, func) {
 			return [ fn.apply(func, args) ];
-		}, functions, fn.toArray(arguments))[0];
+		}, fn.toArray(arguments), functions)[0];
 	};
 };
 
@@ -161,7 +161,7 @@ fn.merge = function () {
 		}, fn.properties(value));
 
 		return accumulator;
-	}, fn.toArray(arguments), {});
+	}, {}, fn.toArray(arguments));
 };
 
 fn.memoize = function memoize(handler, serializer) {
