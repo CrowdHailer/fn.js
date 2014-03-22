@@ -72,11 +72,11 @@ fn.curry = function (handler, arity) {
 		var args = fn.toArray(arguments);
 
 		if (args.length >= arity) {
-			return handler.apply(null, args);
+			return fn.apply(handler, args);
 		}
 
 		var inner = function () {
-			return curry.apply(null, args.concat(fn.toArray(arguments)));
+			return fn.apply(curry, args.concat(fn.toArray(arguments)));
 		};
 
 		inner.curried = true;
@@ -90,27 +90,27 @@ fn.curry = function (handler, arity) {
 };
 
 fn.curryRight = function (handler, arity) {
-	if (handler.curred) {
+	if (handler.curried) {
 		return handler;
 	}
 
 	arity = arity || handler.length;
 
-	function curryRight() {
+	var curryRight = function curryRight() {
 		var args = fn.toArray(arguments);
 
 		if (args.length >= arity) {
-			return handler.apply(null, fn.reverse(args));
+			return fn.apply(handler, fn.reverse(args));
 		}
 
 		var inner = function () {
-			return curryRight.apply(null, args.concat(fn.toArray(arguments)));
+			return fn.apply(curryRight, args.concat(fn.toArray(arguments)));
 		};
 
 		inner.curried = true;
 
 		return inner;
-	}
+	};
 
 	curryRight.curried = true;
 
