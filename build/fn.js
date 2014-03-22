@@ -76,61 +76,40 @@ fn.identity = function (arg) {
 	return arg;
 };
 
-fn.curry = function (handler, arity) {
-	if (handler.curried) {
-		return handler;
-	}
-
-	arity = arity || handler.length;
-
-	var curry = function curry() {
-		var args = fn.toArray(arguments);
-
-		if (args.length >= arity) {
-			return fn.apply(handler, args);
+var curryer = function makeCurry(rightward) {
+	return function (handler, arity) {
+		if (handler.curried) {
+			return handler;
 		}
 
-		var inner = function () {
-			return fn.apply(curry, args.concat(fn.toArray(arguments)));
+		arity = arity || handler.length;
+
+		var curry = function curry() {
+			var args = fn.toArray(arguments);
+
+			if (args.length >= arity) {
+				var transform = rightward ? 'reverse' : 'identity';
+				return fn.apply(handler, fn[transform](args));
+			}
+
+			var inner = function () {
+				return fn.apply(curry, args.concat(fn.toArray(arguments)));
+			};
+
+			inner.curried = true;
+
+			return inner;
 		};
 
-		inner.curried = true;
+		curry.curried = true;
 
-		return inner;
+		return curry;
 	};
-
-	curry.curried = true;
-
-	return curry;
 };
 
-fn.curryRight = function (handler, arity) {
-	if (handler.curried) {
-		return handler;
-	}
+fn.curry = curryer(false);
 
-	arity = arity || handler.length;
-
-	var curryRight = function curryRight() {
-		var args = fn.toArray(arguments);
-
-		if (args.length >= arity) {
-			return fn.apply(handler, fn.reverse(args));
-		}
-
-		var inner = function () {
-			return fn.apply(curryRight, args.concat(fn.toArray(arguments)));
-		};
-
-		inner.curried = true;
-
-		return inner;
-	};
-
-	curryRight.curried = true;
-
-	return curryRight;
-};
+fn.curryRight = curryer(true);
 
 fn.properties = function (object) {
 	var accumulator = [];
