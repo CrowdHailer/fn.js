@@ -72,6 +72,10 @@ fn.partial = function () {
 	};
 };
 
+fn.identity = function (arg) {
+	return arg;
+};
+
 fn.curry = function (handler, arity) {
 	if (handler.curried) {
 		return handler;
