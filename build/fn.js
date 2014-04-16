@@ -58,8 +58,12 @@ fn.apply = function (handler, args) {
 
 fn.concat = function () {
 	var args = fn.toArray(arguments);
+	var first = args[0];
 
-	return args[0].concat.apply(args[0], args.slice(1));
+	if (!fn.is(first, 'array') && !fn.is(first, 'string')) {
+		first = (args.length > 0) ? [first] : [];
+	}
+	return first.concat.apply(first, args.slice(1));
 };
 
 fn.partial = function () {
