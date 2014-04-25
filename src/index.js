@@ -61,33 +61,44 @@ fn.partial = function () {
 	};
 };
 
-fn.curry = function (handler, arity) {
-	if (handler.curried) {
-		return handler;
-	}
+fn.identity = function (arg) {
+	return arg;
+};
 
-	arity = arity || handler.length;
-
-	var curry = function curry() {
-		var args = fn.toArray(arguments);
-
-		if (args.length >= arity) {
-			return handler.apply(null, args);
+var curryer = function makeCurry(rightward) {
+	return function (handler, arity) {
+		if (handler.curried) {
+			return handler;
 		}
 
-		var inner = function () {
-			return curry.apply(null, args.concat(fn.toArray(arguments)));
+		arity = arity || handler.length;
+
+		var curry = function curry() {
+			var args = fn.toArray(arguments);
+
+			if (args.length >= arity) {
+				var transform = rightward ? 'reverse' : 'identity';
+				return fn.apply(handler, fn[transform](args));
+			}
+
+			var inner = function () {
+				return fn.apply(curry, args.concat(fn.toArray(arguments)));
+			};
+
+			inner.curried = true;
+
+			return inner;
 		};
 
-		inner.curried = true;
+		curry.curried = true;
 
-		return inner;
+		return curry;
 	};
-
-	curry.curried = true;
-
-	return curry;
 };
+
+fn.curry = curryer(false);
+
+fn.curryRight = curryer(true);
 
 fn.properties = function (object) {
 	var accumulator = [];
