@@ -1,20 +1,18 @@
 (function(root, factory) {
-    if(typeof exports === 'object') {
-        module.exports = factory();
-    }
-    else if(typeof define === 'function' && define.amd) {
-        define([], factory);
-    }
-    else {
-        root.fn = factory();
-    }
-}(this, function() {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else if (typeof exports === 'object') {
+		module.exports = factory(require, exports, module);
+	} else {
+		root.fn = factory();
+	}
+}(this, function(require, exports, module) {
 'use strict';
 
-var fn = {};
+var fn = { };
 
 fn.toArray = function (collection) {
-	return [].slice.call(collection);
+	return [ ].slice.call(collection);
 };
 
 fn.cloneArray = fn.toArray;
@@ -33,7 +31,9 @@ fn.op = {
 		return value1 / value2;
 	},
 	'==': function (value1, value2) {
+		/*eslint-disable eqeqeq */
 		return value1 == value2;
+		/*eslint-enable eqeqeq */
 	},
 	'===': function (value1, value2) {
 		return value1 === value2;
@@ -45,7 +45,7 @@ fn.type = function (value) {
 	// otherwise get the [[Class]] and compare to the relevant part of the value
 	return value == null ?
 		'' + value :
-		({}).toString.call(value).slice(8, -1).toLowerCase();
+		{ }.toString.call(value).slice(8, -1).toLowerCase();
 };
 
 fn.is = function (value, type) {
@@ -59,12 +59,12 @@ fn.apply = function (handler, args) {
 fn.concat = function () {
 	var args = fn.toArray(arguments);
 
-	return args[0].concat.apply(args[0], args.slice(1));
+	return args[ 0 ].concat.apply(args[ 0 ], args.slice(1));
 };
 
 fn.partial = function () {
 	var args = fn.toArray(arguments);
-	var handler = args[0];
+	var handler = args[ 0 ];
 	var partialArgs = args.slice(1);
 
 	return function () {
@@ -76,7 +76,7 @@ fn.identity = function (arg) {
 	return arg;
 };
 
-var curryer = function makeCurry(rightward) {
+var currier = function makeCurry(rightward) {
 	return function (handler, arity) {
 		if (handler.curried) {
 			return handler;
@@ -89,7 +89,7 @@ var curryer = function makeCurry(rightward) {
 
 			if (args.length >= arity) {
 				var transform = rightward ? 'reverse' : 'identity';
-				return fn.apply(handler, fn[transform](args));
+				return fn.apply(handler, fn[ transform ](args));
 			}
 
 			var inner = function () {
@@ -107,12 +107,12 @@ var curryer = function makeCurry(rightward) {
 	};
 };
 
-fn.curry = curryer(false);
+fn.curry = currier(false);
 
-fn.curryRight = curryer(true);
+fn.curryRight = currier(true);
 
 fn.properties = function (object) {
-	var accumulator = [];
+	var accumulator = [ ];
 
 	for (var property in object) {
 		if (object.hasOwnProperty(property)) {
@@ -125,7 +125,7 @@ fn.properties = function (object) {
 
 fn.each = function (handler, collection, params) {
 	for (var index = 0, collectionLength = collection.length; index < collectionLength; index++) {
-		fn.apply(handler, fn.concat([ collection[index], index, collection ], params));
+		fn.apply(handler, fn.concat([ collection[ index ], index, collection ], params));
 	}
 };
 
@@ -141,17 +141,17 @@ fn.filter = function (expression, collection) {
 	return fn.reduce(function (accumulator, item, index) {
 		expression(item, index) && accumulator.push(item);
 		return accumulator;
-	}, [], collection);
+	}, [ ], collection);
 };
 
-fn.op['++'] = fn.partial(fn.op['+'], 1);
-fn.op['--'] = fn.partial(fn.op['+'], -1);
+fn.op[ '++' ] = fn.partial(fn.op[ '+' ], 1);
+fn.op[ '--' ] = fn.partial(fn.op[ '+' ], -1);
 
 fn.map = function (handler, collection, params) {
 	return fn.reduce(function (accumulator, value, index) {
 		accumulator.push( fn.apply(handler, fn.concat([ value, index, collection ], params)) );
 		return accumulator;
-	}, [], collection);
+	}, [ ], collection);
 };
 
 fn.reverse = function (collection) {
@@ -164,7 +164,7 @@ fn.pipeline = function () {
 	return function () {
 		return fn.reduce(function (args, func) {
 			return [ fn.apply(func, args) ];
-		}, fn.toArray(arguments), functions)[0];
+		}, fn.toArray(arguments), functions)[ 0 ];
 	};
 };
 
@@ -173,34 +173,34 @@ fn.compose = function () {
 };
 
 fn.prop = fn.curry(function (name, object) {
-	return object[name];
+	return object[ name ];
 });
 
 fn.merge = function () {
 	return fn.reduce(function (accumulator, value) {
 		fn.each(function (property) {
-			accumulator[property] = value[property];
+			accumulator[ property ] = value[ property ];
 		}, fn.properties(value));
 
 		return accumulator;
-	}, {}, fn.toArray(arguments));
+	}, { }, fn.toArray(arguments));
 };
 
 fn.memoize = function memoize(handler, serializer) {
-	var cache = {};
+	var cache = { };
 
 	return function () {
 		var args = fn.toArray(arguments);
 		var key = serializer ? serializer(args) : memoize.serialize(args);
 
 		return key in cache ?
-			cache[key] :
-			cache[key] = fn.apply(handler, args);
+			cache[ key ] :
+			cache[ key ] = fn.apply(handler, args);
 	};
 };
 
 fn.memoize.serialize = function (values) {
-	return fn.type(values[0]) + '|' + JSON.stringify(values[0]);
+	return fn.type(values[ 0 ]) + '|' + JSON.stringify(values[ 0 ]);
 };
 
 fn.flip = function (handler) {
@@ -261,5 +261,5 @@ fn.debounce = function (handler, msDelay) {
 	};
 };
 
-    return fn;
+return fn;
 }));

@@ -1,0 +1,20 @@
+<%
+var stdDeps = ['require', 'exports', 'module'];
+
+var amdDeps = _.pluck(deps, 'amdName');
+var globalDeps = _.map(deps, function(dep) { return 'root.' + dep.globalName });
+var cjsDeps = deps ? _.map(deps, function(dep) { return "require('" + dep.cjsName + "')" }) : stdDeps;
+var depNames = deps ? _.pluck(deps, 'paramName') : stdDeps;
+%>(function(root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(<%= deps ? JSON.stringify(amdDeps) + ', ' : '' %>factory);
+	} else if (typeof exports === 'object') {
+		module.exports = factory(<%= cjsDeps.join(', ') %>);
+	} else {
+		root.<%= namespace %> = factory(<%= globalDeps.join(', ') %>);
+	}
+}(this, function(<%= depNames.join(', ') %>) {
+<% if (exports) { %><%= contents %>
+return <%= exports %>;
+<% } else { %>return <%= contents %>;
+<% } %>}));
