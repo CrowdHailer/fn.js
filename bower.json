@@ -1,0 +1,12 @@
+{
+  "name": "fn.js",
+  "version": "0.7.0",
+  "main": "build/fn.js",
+  "license": "MIT",
+  "ignore": ["./!(fn.js)"],
+  "keywords": [
+    "functional",
+    "programming",
+    "fp"
+  ]
+}
