@@ -43,8 +43,17 @@ gulp.task('wrap', ['test'], function () {
 gulp.task('default', ['wrap']);
 
 gulp.task('bump', function () {
-	if (!args.rev) {
-		return console.error('You must provide a revision via --rev in order to continue.');
+	if (!args.rev && !args.ver) {
+		console.error('You must provide a revision via --rev or version via --ver to continue.');
+		process.exit(1);
+	}
+
+	var options = {};
+
+	if (args.rev) {
+		options.type = args.rev;
+	} else {
+		options.version = args.ver;
 	}
 
 	return gulp
@@ -52,7 +61,7 @@ gulp.task('bump', function () {
 			'./package.json',
 			'./bower.json'
 		])
-		.pipe(plugins.bump({ type: gulp.env.rev }))
+		.pipe(plugins.bump(options))
 		.pipe(gulp.dest('./'));
 });
 
