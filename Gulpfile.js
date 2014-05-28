@@ -64,7 +64,7 @@ gulp.task('bump', function () {
 		.pipe(gulp.dest('./'));
 });
 
-gulp.task('tag', ['bump'], function () {
+gulp.task('tag', function () {
 	var pkg = require('./package.json');
 	var version = 'v' + pkg.version;
 
