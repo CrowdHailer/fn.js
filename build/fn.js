@@ -48,7 +48,7 @@ fn.type = function (value) {
 		{ }.toString.call(value).slice(8, -1).toLowerCase();
 };
 
-fn.is = function (value, type) {
+fn.is = function (type, value) {
 	return type === fn.type(value);
 };
 

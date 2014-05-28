@@ -4,7 +4,6 @@ var plugins = require('gulp-load-plugins')({
 	scope: ['devDependencies']
 });
 var args = require('yargs').argv;
-var spawn = require('child_process').spawn;
 
 gulp.task('lint', function () {
 	return gulp
@@ -18,17 +17,7 @@ gulp.task('lint', function () {
 		.pipe(plugins.eslint.failOnError());
 });
 
-gulp.task('test', ['lint'], function () {
-	return gulp
-		.src(['./tests/**/*.js'])
-		.pipe(plugins.mocha({
-			reporter: 'spec',
-			bail: true,
-			globals: ['fn']
-		}));
-});
-
-gulp.task('wrap', ['test'], function () {
+gulp.task('wrap', ['lint'], function () {
 	return gulp
 		.src(['./src/index.js'])
 		.pipe(plugins.wrapUmd({
@@ -40,7 +29,17 @@ gulp.task('wrap', ['test'], function () {
 		.pipe(gulp.dest('./build/'));
 });
 
-gulp.task('default', ['wrap']);
+gulp.task('test', ['wrap'], function () {
+	return gulp
+		.src(['./tests/**/*.js'])
+		.pipe(plugins.mocha({
+			reporter: 'spec',
+			bail: true,
+			globals: ['fn']
+		}));
+});
+
+gulp.task('default', ['test']);
 
 gulp.task('bump', function () {
 	if (!args.rev && !args.ver) {
@@ -71,17 +70,8 @@ gulp.task('tag', ['bump'], function () {
 
 	plugins.git
 		.tag(version, 'Tagging release ' + version);
-});
 
-gulp.task('push', ['tag'], function () {
-	plugins.git
+	return plugins.git
 		.push('origin', 'master', { args: '--tags' })
 		.end();
 });
-
-gulp.task('npm-publish', ['push'], function (done) {
-	spawn('npm', ['publish'], { stdio: 'inherit' })
-		.on('close', done);
-});
-
-gulp.task('release', ['npm-publish']);
