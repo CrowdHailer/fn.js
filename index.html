@@ -190,7 +190,7 @@ $ npm install fn.js</code></pre>
 	<hr/>
 
 	<div class="container">
-		<h1 id="docs">Documentation, <code>0.7.0</code></h1>
+		<h1 id="docs">Documentation, <code>0.8.0</code></h1>
 		<br/>
 
 		<div class="row">
@@ -341,7 +341,7 @@ fn.type( new Date() ); // "date"
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#documentation" href="#is">
-								<code>fn.is( value, type )</code>
+								<code>fn.is( type, value )</code>
 							</a>
 						</h4>
 					</div>
@@ -351,7 +351,7 @@ fn.type( new Date() ); // "date"
 							<div class="description">
 								<strong>Description</strong>
 
-								Determines whether the supplied value is of the supplied type.
+								Given a string type, determine whether a given value matches the type.
 							</div>
 							<div class="arguments">
 								<strong>Arguments</strong>
@@ -359,15 +359,16 @@ fn.type( new Date() ); // "date"
 								<table class="table table-bordered table-condensed">
 									<tbody>
 										<tr>
-											<td><code>value</code></td>
-											<td>mixed (any value)</td>
-											<td>The value to fetch the type for</td>
-										</tr>
-										<tr>
 											<td><code>type</code></td>
 											<td><code>String</code></td>
 											<td>The string type to compare against the supplied type of the value. Note that this string type is the same format as the ones returned by <code>fn.type</code>.</td>
 										</tr>
+										<tr>
+											<td><code>value</code></td>
+											<td>mixed (any value)</td>
+											<td>The value to fetch the type for</td>
+										</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -379,15 +380,15 @@ fn.type( new Date() ); // "date"
 							<div class="example">
 								<strong>Example</strong>
 
-<pre class="language-javascript"><code>fn.is( 'Bill', 'string' ); // true
-fn.is( 3, 'undefined' ); // false
-fn.is( {}, 'object' ); // true
-fn.is( [], 'function' ); // false
-fn.is( function () {}, 'function' ); // true
-fn.is( null, 'undefined' ); // false
-fn.is( undefined, 'null' ); // false
-fn.is( /Hello World/i, 'regexp' ); // true
-fn.is( new Date(), 'number' ); // false
+<pre class="language-javascript"><code>fn.is( 'string', 'Bill' ); // true
+fn.is( 'undefined', 3 ); // false
+fn.is( 'object', {} ); // true
+fn.is( 'function', [] ); // false
+fn.is( 'function', function () {} ); // true
+fn.is( 'undefined', null ); // false
+fn.is( 'null', undefined ); // false
+fn.is( 'regexp', /Hello World/i ); // true
+fn.is( 'number', new Date() ); // false
 </code></pre>
 							</div>
 						</div>
@@ -595,6 +596,63 @@ billName( 'Damon' )( 'Smith' ); // "Bill Damon Smith"
 billName( 'Jefferson', 'Clinton' ); // "Bill Jefferson Clinton"
 fullName( 'Jenn', 'Anne', 'Cochran' ); // "Jenn Anne Cochran"
 fullName( 'Jenn', 'Anne' )( 'Cochran' ); // "Jenn Anne Cochran"
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#documentation" href="#curryRight">
+								<code>fn.curryRight( handler, [ arity ] )</code>
+							</a>
+						</h4>
+					</div>
+
+					<div id="curryRight" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="description">
+								<strong>Description</strong>
+
+								The right-associative version of <code>fn.curry</code>. Continuously partially apply a handler function until it receives all its expected requirements before invoking. Any remaining arguments will be passed on at invocation. Currying is dependent on being able to read how many arguments a function expects by having the declared with the handler, e.g <code>function (a, b, c) {}</code> will curry until it has received its 3rd argument. If the arguments declared with the function are not in line with what the function internally required, specify the <code>arity</code> argument.
+							</div>
+							<div class="arguments">
+								<strong>Arguments</strong>
+
+								<table class="table table-bordered table-condensed">
+									<tbody>
+									<tr>
+										<td><code>handler</code></td>
+										<td><code>Function</code></td>
+										<td>The function which will have its arguments curried.</td>
+									</tr>
+									<tr>
+										<td>Optional <code>arity</code></td>
+										<td><code>Number</code></td>
+										<td>How many arguments should be supplied before invoking the handler</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="returns">
+								<strong>Returns</strong>
+
+								<code>Function</code> A new function which curries arguments until the the required amount has been met.
+							</div>
+							<div class="example">
+								<strong>Example</strong>
+
+<pre class="language-javascript"><code>var fullName = fn.curryRight(function ( firstName, middleName, lastName ) {
+	return firstName + ' ' middleName + ' ' + lastName;
+});
+
+var smithName = fullName( 'Smith' );
+
+smithName( 'Damon' )( 'Bill' ); // "Bill Damon Smith"
+smithName( 'Jefferson', 'Bill' ); // "Bill Jefferson Clinton"
+fullName( 'Cochran', 'Anne', 'Jenn' ); // "Jenn Anne Cochran"
+fullName( 'Cochran', 'Anne' )( 'Jenn' ); // "Jenn Anne Cochran"
 </code></pre>
 							</div>
 						</div>
