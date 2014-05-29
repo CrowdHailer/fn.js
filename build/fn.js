@@ -61,8 +61,9 @@ fn.concat = function () {
 	var first = args[ 0 ];
 
 	if (!fn.is('array', first) && !fn.is('string', first)) {
-		first = args.length > 0 ? [ first ] : [ ];
+		first = args.length ? [ first ] : [ ];
 	}
+
 	return first.concat.apply(first, args.slice(1));
 };
 
