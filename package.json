@@ -1,6 +1,6 @@
 {
   "name": "fn.js",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Functional programming strategy library for JavaScript",
   "main": "build/fn.js",
   "repository": {
@@ -21,12 +21,17 @@
     "url": "https://github.com/eliperelman/fn.js/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-bump": "0.0.11",
-    "grunt-umd": "~1.1.0",
-    "grunt-contrib-jshint": "~0.6.2",
-    "grunt-cafe-mocha": "~0.1.8",
-    "chai": "~1.7.2"
+    "gulp": "^3.6.2",
+    "gulp-load-plugins": "^0.5.1",
+    "gulp-bump": "^0.1.8",
+    "gulp-git": "^0.4.2",
+    "yargs": "^1.2.2",
+    "gulp-wrap-umd": "^0.2.0",
+    "gulp-mocha": "^0.4.1",
+    "chai": "^1.9.1",
+    "eslint": "^0.6.2",
+    "gulp-eslint": "^0.1.7",
+    "gulp-rename": "^1.2.0"
   },
   "dependencies": {}
 }
