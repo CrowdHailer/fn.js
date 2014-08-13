@@ -12,7 +12,7 @@
 var fn = { };
 
 fn.toArray = function (collection) {
-	return [ ].slice.call(collection);
+	return Array.prototype.slice.call(collection);
 };
 
 fn.cloneArray = fn.toArray;
@@ -45,7 +45,7 @@ fn.type = function (value) {
 	// otherwise get the [[Class]] and compare to the relevant part of the value
 	return value == null ?
 		'' + value :
-		{ }.toString.call(value).slice(8, -1).toLowerCase();
+		Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
 };
 
 fn.is = function (type, value) {
@@ -266,5 +266,8 @@ fn.debounce = function (handler, msDelay) {
 	};
 };
 
+fn.contains = function (haystack, needle) {
+	return haystack.indexOf(needle) !== -1;
+};
 return fn;
 }));
