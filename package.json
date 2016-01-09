@@ -5,7 +5,7 @@
   "main": "build/fn.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/eliperelman/fn.js"
+    "url": "git://github.com/CrowdHailer/fn.js"
   },
   "keywords": [
     "functional",
@@ -13,12 +13,12 @@
     "fp"
   ],
   "author": "Eli Perelman",
-  "homepage": "https://github.com/eliperelman/fn.js",
+  "homepage": "https://github.com/CrowdHailer/fn.js",
   "license": "MIT",
   "gitHead": "03ee04cb590f1692f60737c576ff50e43e1ea943",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/eliperelman/fn.js/issues"
+    "url": "https://github.com/CrowdHailer/fn.js/issues"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
