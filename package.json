@@ -4,8 +4,8 @@
   "description": "Functional programming strategy library for JavaScript",
   "scripts": {
     "pretest": "npm run -s lint && npm run -s build",
-    "build": "gulp wrap",
-    "test": "mocha ./tests",
+    "test": "mocha",
+    "build": "rollup --format umd --name fn fn.js > build/fn.js",
     "lint": "eslint src/index.js"
   },
   "main": "build/fn.js",
@@ -29,15 +29,8 @@
   "devDependencies": {
     "chai": "^1.9.1",
     "eslint": "^0.6.2",
-    "gulp": "^3.6.2",
-    "gulp-bump": "^0.1.8",
-    "gulp-eslint": "^0.1.7",
-    "gulp-git": "^0.4.2",
-    "gulp-load-plugins": "^0.5.1",
-    "gulp-mocha": "^0.4.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-wrap-umd": "^0.2.0",
     "mocha": "^2.3.4",
+    "rollup": "^0.24.1",
     "yargs": "^1.2.2"
   }
 }
