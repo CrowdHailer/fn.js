@@ -2,6 +2,11 @@
   "name": "fn.js",
   "version": "0.8.1",
   "description": "Functional programming strategy library for JavaScript",
+  "scripts": {
+    "pretest": "npm run -s lint",
+    "test": "gulp test",
+    "lint": "gulp lint"
+  },
   "main": "build/fn.js",
   "repository": {
     "type": "git",
@@ -32,6 +37,5 @@
     "eslint": "^0.6.2",
     "gulp-eslint": "^0.1.7",
     "gulp-rename": "^1.2.0"
-  },
-  "dependencies": {}
+  }
 }
