@@ -5,19 +5,7 @@ var plugins = require('gulp-load-plugins')({
 });
 var args = require('yargs').argv;
 
-gulp.task('lint', function () {
-	return gulp
-		.src(['./src/index.js'])
-		.pipe(plugins.eslint({
-			globals: {
-				'fn': true
-			}
-		}))
-		.pipe(plugins.eslint.format())
-		.pipe(plugins.eslint.failOnError());
-});
-
-gulp.task('wrap', ['lint'], function () {
+gulp.task('wrap', [], function () {
 	return gulp
 		.src(['./src/index.js'])
 		.pipe(plugins.wrapUmd({

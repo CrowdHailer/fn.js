@@ -6,7 +6,7 @@
     "pretest": "npm run -s lint && npm run -s build",
     "build": "gulp wrap",
     "test": "mocha ./tests",
-    "lint": "gulp lint"
+    "lint": "eslint src/index.js"
   },
   "main": "build/fn.js",
   "repository": {
