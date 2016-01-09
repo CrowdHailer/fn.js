@@ -29,17 +29,7 @@ gulp.task('wrap', ['lint'], function () {
 		.pipe(gulp.dest('./build/'));
 });
 
-gulp.task('test', ['wrap'], function () {
-	return gulp
-		.src(['./tests/**/*.js'])
-		.pipe(plugins.mocha({
-			reporter: 'spec',
-			bail: true,
-			globals: ['fn']
-		}));
-});
-
-gulp.task('default', ['test']);
+gulp.task('default', ['wrap']);
 
 gulp.task('bump', function () {
 	if (!args.rev && !args.ver) {

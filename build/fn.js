@@ -269,5 +269,6 @@ fn.debounce = function (handler, msDelay) {
 fn.contains = function (haystack, needle) {
 	return haystack.indexOf(needle) !== -1;
 };
+
 return fn;
 }));

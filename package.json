@@ -3,8 +3,9 @@
   "version": "0.8.1",
   "description": "Functional programming strategy library for JavaScript",
   "scripts": {
-    "pretest": "npm run -s lint",
-    "test": "gulp test",
+    "pretest": "npm run -s lint && npm run -s build",
+    "build": "gulp wrap",
+    "test": "mocha ./tests",
     "lint": "gulp lint"
   },
   "main": "build/fn.js",
@@ -26,16 +27,17 @@
     "url": "https://github.com/CrowdHailer/fn.js/issues"
   },
   "devDependencies": {
-    "gulp": "^3.6.2",
-    "gulp-load-plugins": "^0.5.1",
-    "gulp-bump": "^0.1.8",
-    "gulp-git": "^0.4.2",
-    "yargs": "^1.2.2",
-    "gulp-wrap-umd": "^0.2.0",
-    "gulp-mocha": "^0.4.1",
     "chai": "^1.9.1",
     "eslint": "^0.6.2",
+    "gulp": "^3.6.2",
+    "gulp-bump": "^0.1.8",
     "gulp-eslint": "^0.1.7",
-    "gulp-rename": "^1.2.0"
+    "gulp-git": "^0.4.2",
+    "gulp-load-plugins": "^0.5.1",
+    "gulp-mocha": "^0.4.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-wrap-umd": "^0.2.0",
+    "mocha": "^2.3.4",
+    "yargs": "^1.2.2"
   }
 }
