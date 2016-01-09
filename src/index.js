@@ -221,23 +221,7 @@ fn.delayedFor = fn.flip(fn.delayed);
 
 fn.async = fn.compose(fn.partial(fn.delayedFor, 0));
 
-fn.throttle = function (handler, msDelay) {
-	var throttling;
 
-	return function () {
-		var args = fn.toArray(arguments);
-
-		if (throttling) {
-			return;
-		}
-
-		throttling = fn.delay(function () {
-			throttling = false;
-
-			fn.apply(handler, args);
-		}, msDelay);
-	};
-};
 
 fn.debounce = function (handler, msDelay) {
 	var debouncing;

@@ -13,7 +13,7 @@ describe('.throttle()', function () {
 
 		var interval = setInterval(increment, 10);
 
-		fn.delay(function () {
+		setTimeout(function () {
 			expect(iterations).to.be.at.most(10);
 			clearInterval(interval);
 			done();
