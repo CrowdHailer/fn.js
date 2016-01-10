@@ -8,16 +8,8 @@
 		return handler.apply(null, args);
 	};
 
-	function toArray (collection) {
-		return Array.prototype.slice.call(collection);
-	};
-
-	function type (value) {
-		// If the value is null or undefined, return the stringified name,
-		// otherwise get the [[Class]] and compare to the relevant part of the value
-		return value == null ?
-			'' + value :
-			Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+	function identity (arg) {
+		return arg;
 	};
 
 	function is (typeName, value) {
@@ -42,9 +34,22 @@
 		};
 	};
 
+	function toArray (collection) {
+		return Array.prototype.slice.call(collection);
+	};
+
+	function type (value) {
+		// If the value is null or undefined, return the stringified name,
+		// otherwise get the [[Class]] and compare to the relevant part of the value
+		return value == null ?
+			'' + value :
+			Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+	};
+
 	exports.apply = apply;
-	exports.toArray = toArray;
+	exports.identity = identity;
 	exports.is = is;
 	exports.throttle = throttle;
+	exports.toArray = toArray;
 
 }));
