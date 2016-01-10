@@ -12,6 +12,18 @@
 		return Array.prototype.slice.call(collection);
 	};
 
+	function type (value) {
+		// If the value is null or undefined, return the stringified name,
+		// otherwise get the [[Class]] and compare to the relevant part of the value
+		return value == null ?
+			'' + value :
+			Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+	};
+
+	function is (typeName, value) {
+		return typeName === type(value);
+	};
+
 	function throttle (handler, msDelay) {
 		var throttling;
 
@@ -31,6 +43,8 @@
 	};
 
 	exports.apply = apply;
+	exports.toArray = toArray;
+	exports.is = is;
 	exports.throttle = throttle;
 
 }));
