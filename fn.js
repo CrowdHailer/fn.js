@@ -60,6 +60,23 @@ export function is (typeName, value) {
 	return typeName === type(value);
 };
 
+export function memoize(handler, serializer) {
+	var cache = { };
+
+	return function () {
+		var args = toArray(arguments);
+		var key = serializer ? serializer(args) : memoize.serialize(args);
+
+		return key in cache ?
+			cache[ key ] :
+			cache[ key ] = apply(handler, args);
+	};
+};
+
+memoize.serialize = function (values) {
+	return type(values[ 0 ]) + '|' + JSON.stringify(values[ 0 ]);
+};
+
 export function pipeline () {
 	var functions = toArray(arguments);
 
@@ -100,7 +117,7 @@ export function toArray (collection) {
 	return Array.prototype.slice.call(collection);
 };
 
-function type (value) {
+export function type (value) {
 	// If the value is null or undefined, return the stringified name,
 	// otherwise get the [[Class]] and compare to the relevant part of the value
 	return value == null ?

@@ -66,6 +66,23 @@
 		return typeName === type(value);
 	};
 
+	function memoize(handler, serializer) {
+		var cache = { };
+
+		return function () {
+			var args = toArray(arguments);
+			var key = serializer ? serializer(args) : memoize.serialize(args);
+
+			return key in cache ?
+				cache[ key ] :
+				cache[ key ] = apply(handler, args);
+		};
+	};
+
+	memoize.serialize = function (values) {
+		return type(values[ 0 ]) + '|' + JSON.stringify(values[ 0 ]);
+	};
+
 	function pipeline () {
 		var functions = toArray(arguments);
 
@@ -121,8 +138,10 @@
 	exports.curryRight = curryRight;
 	exports.identity = identity;
 	exports.is = is;
+	exports.memoize = memoize;
 	exports.pipeline = pipeline;
 	exports.throttle = throttle;
 	exports.toArray = toArray;
+	exports.type = type;
 
 }));
