@@ -7,8 +7,8 @@ describe('.pipeline()', function () {
 	it('should return a new function', function () {
 
 		var func = fn.pipeline(
-			fn.partial( fn.op['+'], 3 ),
-			fn.partial( fn.op['*'], 6 ),
+			function(x){ return x + 3; },
+			function(x){ return x + 6; },
 			function (num) {
 				return Math.pow(num, 2);
 			});
@@ -18,8 +18,8 @@ describe('.pipeline()', function () {
 
 	it('should pass return values from left to right', function () {
 		var func = fn.pipeline(
-			fn.partial( fn.op['+'], 3 ),
-			fn.partial( fn.op['*'], 6 ),
+			function(x){ return x + 3; },
+			function(x){ return x * 6; },
 			function (num) {
 				return Math.pow(num, 2);
 			});

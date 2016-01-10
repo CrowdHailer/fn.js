@@ -8,12 +8,45 @@
 		return handler.apply(null, args);
 	};
 
+	function compose () {
+		return apply(pipeline, toArray(arguments).reverse());
+	};
+
+	function concat () {
+		var args = toArray(arguments);
+		var first = args[ 0 ];
+
+		if (!is('array', first) && !is('string', first)) {
+			first = args.length ? [ first ] : [ ];
+		}
+
+		return first.concat.apply(first, args.slice(1));
+	};
+
 	function identity (arg) {
 		return arg;
 	};
 
 	function is (typeName, value) {
 		return typeName === type(value);
+	};
+
+	function pipeline () {
+		var functions = toArray(arguments);
+
+		return function () {
+			return reduce(function (args, func) {
+				return [ apply(func, args) ];
+			}, toArray(arguments), functions)[ 0 ];
+		};
+	};
+
+	function reduce (handler, accumulator, collection, params) {
+		collection.forEach(function (value, index) {
+			accumulator = apply(handler, [ accumulator, value, index ].concat(params));
+		});
+
+		return accumulator;
 	};
 
 	function throttle (handler, msDelay) {
@@ -47,8 +80,11 @@
 	};
 
 	exports.apply = apply;
+	exports.compose = compose;
+	exports.concat = concat;
 	exports.identity = identity;
 	exports.is = is;
+	exports.pipeline = pipeline;
 	exports.throttle = throttle;
 	exports.toArray = toArray;
 

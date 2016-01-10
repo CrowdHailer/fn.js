@@ -8,8 +8,8 @@ describe('.compose()', function () {
 
 	beforeEach(function() {
 		func = fn.compose(
-			fn.partial( fn.op['+'], 3 ),
-			fn.partial( fn.op['*'], 6 ),
+			function(x){ return x + 3; },
+			function(x){ return x * 6; },
 			function (num) {
 				return Math.pow(num, 2);
 			});
