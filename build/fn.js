@@ -23,6 +23,41 @@
 		return first.concat.apply(first, args.slice(1));
 	};
 
+	var currier = function makeCurry(rightward) {
+		return function (handler, arity) {
+			if (handler.curried) {
+				return handler;
+			}
+
+			arity = arity || handler.length;
+
+			var curry = function curry() {
+				var args = toArray(arguments);
+
+				if (args.length >= arity) {
+					var args = rightward ? args.reverse() : args;
+					return apply(handler, args);
+				}
+
+				var inner = function () {
+					return apply(curry, args.concat(toArray(arguments)));
+				};
+
+				inner.curried = true;
+
+				return inner;
+			};
+
+			curry.curried = true;
+
+			return curry;
+		};
+	};
+
+	var curry = currier(false);
+
+	var curryRight = currier(true);
+
 	function identity (arg) {
 		return arg;
 	};
@@ -82,6 +117,8 @@
 	exports.apply = apply;
 	exports.compose = compose;
 	exports.concat = concat;
+	exports.curry = curry;
+	exports.curryRight = curryRight;
 	exports.identity = identity;
 	exports.is = is;
 	exports.pipeline = pipeline;
