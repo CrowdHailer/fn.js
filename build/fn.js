@@ -83,6 +83,16 @@
 		return type(values[ 0 ]) + '|' + JSON.stringify(values[ 0 ]);
 	};
 
+	function partial () {
+		var args = toArray(arguments);
+		var handler = args[ 0 ];
+		var partialArgs = args.slice(1);
+
+		return function () {
+			return apply(handler, concat(partialArgs, toArray(arguments)) );
+		};
+	};
+
 	function pipeline () {
 		var functions = toArray(arguments);
 
@@ -139,6 +149,7 @@
 	exports.identity = identity;
 	exports.is = is;
 	exports.memoize = memoize;
+	exports.partial = partial;
 	exports.pipeline = pipeline;
 	exports.throttle = throttle;
 	exports.toArray = toArray;

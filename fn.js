@@ -77,6 +77,16 @@ memoize.serialize = function (values) {
 	return type(values[ 0 ]) + '|' + JSON.stringify(values[ 0 ]);
 };
 
+export function partial () {
+	var args = toArray(arguments);
+	var handler = args[ 0 ];
+	var partialArgs = args.slice(1);
+
+	return function () {
+		return apply(handler, concat(partialArgs, toArray(arguments)) );
+	};
+};
+
 export function pipeline () {
 	var functions = toArray(arguments);
 
