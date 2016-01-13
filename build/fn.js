@@ -58,6 +58,46 @@
 
 	var curryRight = currier(true);
 
+	function debounce (handler, msDelay) {
+		var debouncing;
+
+		return function () {
+			var args = toArray(arguments);
+
+			if (debouncing) {
+				clearTimeout(debouncing);
+			}
+
+			debouncing = delay(function () {
+				debouncing = false;
+
+				apply(handler, args);
+			}, msDelay);
+		};
+	};
+
+	function delay (handler, msDelay) {
+		return setTimeout(handler, msDelay);
+	};
+
+	var delayFor = flip(delay);
+
+	function delayed (handler, msDelay) {
+		return function () {
+			return delay(partial(handler, toArray(arguments)), msDelay);
+		};
+	};
+
+	var delayedFor = flip(delayed);
+
+	var async = compose(partial(delayedFor, 0));
+
+	function flip (handler) {
+		return function () {
+			return apply(handler, toArray(arguments).reverse());
+		};
+	};
+
 	function identity (arg) {
 		return arg;
 	};
@@ -146,6 +186,13 @@
 	exports.concat = concat;
 	exports.curry = curry;
 	exports.curryRight = curryRight;
+	exports.debounce = debounce;
+	exports.delay = delay;
+	exports.delayFor = delayFor;
+	exports.delayed = delayed;
+	exports.delayedFor = delayedFor;
+	exports.async = async;
+	exports.flip = flip;
 	exports.identity = identity;
 	exports.is = is;
 	exports.memoize = memoize;
